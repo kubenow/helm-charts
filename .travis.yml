@@ -1,18 +1,21 @@
 language: python
- only:
-  - master
-# Use trevis vars, 
-install:
-  - export HELM_URL=https://storage.googleapis.com/kubernetes-helm
-  - export HELM_TGZ=helm-v2.4.1-linux-amd64.tar.gz
-  - wget -P /tmp/ ${HELM_URL}/${HELM_TGZ}
-  - tar -xf /tmp/$HELM_TGZ -C /tmp/
-  - sudo mv /tmp/linux-amd64/helm /usr/local/bin/
-  - PATH=/usr/local/bin/linux-amd64/:$PATH
-  - helm init --client-only
 
-script: bash ./deploy.sh
-env:
-  global:
-    - ENCRYPTION_LABEL: "1f5633e62941"
-      - COMMIT_AUTHOR_EMAIL: "novella.uu@gmail.com"
+branches:
+  only:
+    - master 
+
+before_script:
+  # Decrypt key
+  - >
+    openssl aes-256-cbc
+    -K $encrypted_1f5633e62941_key
+    -iv $encrypted_1f5633e62941_iv
+    -in .ssh-keys/travis.enc
+    -out .ssh-keys/travis
+    -d
+
+  # Add the keypair to the agent
+  - eval "$(ssh-agent -s)"
+  - ssh-add keys/id_rsa
+
+script: true
