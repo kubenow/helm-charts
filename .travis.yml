@@ -16,6 +16,6 @@ before_script:
 
   # Add the keypair to the agent
   - eval "$(ssh-agent -s)"
-  - ssh-add keys/id_rsa
+  - ssh-add .ssh-keys/travis
 
 script: true
