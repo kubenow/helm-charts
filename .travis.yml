@@ -28,5 +28,31 @@ before_script:
   - ssh-add .ssh-keys/travis
 
 script:
-  # Testing script
-  - true
+  - set -e
+
+  # Current dir and temporary dir for storing new packaged charts and index files
+  - REPO_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+  - BUILD_DIR=$(mktemp -d)
+
+  # Useful URLs
+  - REPO_URL=`git config remote.origin.url`
+  - SSH_REPO=${REPO_URL/https:\/\/github.com\//git@github.com:}
+  - SHA=`git rev-parse --verify HEAD`
+
+  # Push temporary directory to the stack
+  - pushd $BUILD_DIR
+
+  # Iterate over all charts are package them
+  - for dir in `ls $REPO_DIR/charts/`; do
+  - helm dep update $REPO_DIR/charts/$dir
+  - helm package $REPO_DIR/charts/$dir
+  - done
+
+  # Indexing of charts
+  - if [ -f index.yaml ]; then
+  - helm repo index --url ${REPO_URL} --merge index.yaml .
+  - else
+  - helm repo index --url ${REPO_URL} .
+  - fi
+  # Pop temporary directory from the stack
+  - popd
