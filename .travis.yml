@@ -28,8 +28,6 @@ before_script:
   - ssh-add .ssh-keys/travis
 
 script:
-  - >
-   set -e
 
   # Current dir and temporary dir for storing new packaged charts and index files
   - REPO_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
@@ -55,5 +53,5 @@ script:
   - else
   - helm repo index --url ${REPO_URL} .
   - fi
-  # Pop temporary directory from the stack
+  # Pop temporary directory to the stack
   - popd
