@@ -1,0 +1,10 @@
+apiVersion: v1
+description: "Pachyderm is a large-scale container-based workflow engine that offers complete version control for data and reproducible data processing"
+name: pachyderm
+version: 0.1.0
+home: "https://pachyderm.io"
+sources:
+  - "https://github.com/pachyderm/pachyderm"
+maintainers:
+  - name: Jon Ander Novella
+    email: Jon.Novella@farmbio.uu.se

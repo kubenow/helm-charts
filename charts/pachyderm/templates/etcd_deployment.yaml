@@ -1,0 +1,46 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: etcd
+  labels:
+    app: etcd
+    suite: pachyderm
+    chart: "{{ .Chart.Name }}-{{ .Chart.Version }}"
+spec:
+  replicas: {{ .Values.etcd.replicaCount }}
+  selector:
+    matchLabels:
+      app: etcd
+      suite: pachyderm
+  template:
+    metadata:
+      name: etcd
+      labels:
+        app: etcd
+        suite: pachyderm
+    spec:
+      volumes:
+        - name: '{{ .Values.etcd.volumes.volumeName }}'
+          persistentVolumeClaim:
+            claimName: '{{ .Values.etcd.volumeClaim.name }}'
+      containers:
+        - name: etcd
+          image: '{{ .Values.etcd.image.repository }}:{{ .Values.etcd.image.tag }}'
+          command:
+          - "/usr/local/bin/etcd"
+          - "--listen-client-urls=http://0.0.0.0:2379"
+          - "--advertise-client-urls=http://0.0.0.0:2379"
+          - "--data-dir=/var/data/etcd"
+          ports:
+            - name: client-port
+              containerPort: 2379
+            - name: peer-port
+              containerPort: 2380
+          resources:
+           requests:
+            cpu: '{{ .Values.etcd.resources.requests.cpu }}'
+            memory: {{ .Values.etcd.resources.requests.memory }}
+          volumeMounts:
+            - name: '{{ .Values.etcd.volumes.volumeName }}'
+              mountPath: "/var/data/etcd"
+          imagePullPolicy: {{ .Values.etcd.image.pullPolicy }}
