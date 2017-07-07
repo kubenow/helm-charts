@@ -29,5 +29,4 @@ before_script:
 
 script:
   # Testing script
-  - log "This is the script"
   - true
