@@ -28,7 +28,8 @@ before_script:
   - ssh-add .ssh-keys/travis
 
 script:
-  - set -e
+  - >
+   set -e
 
   # Current dir and temporary dir for storing new packaged charts and index files
   - REPO_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
