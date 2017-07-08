@@ -65,3 +65,20 @@ script:
   - git checkout ${TARGET_BR} || git checkout --orphan ${TARGET_BR}
   - cd ..
   - rm -rf out/**/* || exit 0
+
+  # Push new contents upstream
+  - cp $BUILD_DIR/* out/
+  - cd out
+
+  # Cjeck for changes
+  - if [ git diff --quiet ]; then
+    echo "No changes, exiting.";
+    exit 0;
+    fi
+
+  # Add all new files to staging phase and commit the changes
+  - git add --all .
+  - git commit -m "Deploy to test repository ${SHA}"
+
+  # We can push.
+  - git push ${SSH_REPO} ${TARGET_BRANCH}
