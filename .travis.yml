@@ -57,3 +57,5 @@ script:
     fi
   # Pop temporary directory from the stack
   - popd
+  
+  - ls ${BUILD_DIR}
