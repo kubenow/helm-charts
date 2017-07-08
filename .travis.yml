@@ -43,15 +43,15 @@ script:
 
   # Iterate over all charts are package them
   - for dir in `ls $REPO_DIR/charts`; do
-    helm dep update $REPO_DIR/charts/$dir
-    helm package $REPO_DIR/charts/$dir
+    helm dep update $REPO_DIR/charts/$dir;
+    helm package $REPO_DIR/charts/$dir; 
     done
 
   # Indexing of charts
   - if [ -f index.yaml ]; then
-    helm repo index --url ${REPO_URL} --merge index.yaml .
+    helm repo index --url ${REPO_URL} --merge index.yaml .;
     else
-    helm repo index --url ${REPO_URL} .
+    helm repo index --url ${REPO_URL} .;
     fi
   # Pop temporary directory from the stack
   - popd
