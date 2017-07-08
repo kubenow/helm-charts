@@ -64,7 +64,7 @@ script:
   - cd out
   - git checkout ${TARGET_BR} || git checkout --orphan ${TARGET_BR}
   - cd ..
-  - rm -rf out/**/* || exit 0
+  - rm -rf out/* || exit 0
 
   # Push new contents upstream
   - cp $BUILD_DIR/* out/
