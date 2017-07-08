@@ -31,7 +31,8 @@ script:
   - ls
   - pwd
   # Current dir and temporary dir for storing new packaged charts and index files
-  - REPO_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+  #- REPO_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+  - REPO_DIR=/home/travis/build/kubenow/helm-charts
   - BUILD_DIR=$(mktemp -d)
 
   # Useful URLs
@@ -43,9 +44,9 @@ script:
   - pushd $BUILD_DIR
 
   # Iterate over all charts are package them
-  - for dir in `ls charts/`; do
-    helm dep update charts/$dir;
-    helm package charts/$dir; 
+  - for dir in `ls ${REPO_DIR}/charts`; do
+    helm dep update ${REPO_DIR}/charts/$dir;
+    helm package ${REPO_DIR}/charts/$dir;
     done
 
   # Indexing of charts
