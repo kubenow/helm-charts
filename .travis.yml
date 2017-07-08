@@ -77,6 +77,7 @@ script:
     fi
 
   # Add all new files to staging phase and commit the changes
+  - git config user.name "Travis CI"
   - git add --all .
   - git commit -m "Deploy to test repository ${SHA}"
 
