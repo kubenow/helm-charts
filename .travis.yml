@@ -4,6 +4,7 @@ env:
  global:
   - HELM_URL=https://storage.googleapis.com/kubernetes-helm
   - HELM_TGZ=helm-v2.4.1-linux-amd64.tar.gz
+  - TARGET_BR=feature/repo_test
 
 install:
   # Installing Helm
@@ -28,10 +29,7 @@ before_script:
   - ssh-add .ssh-keys/travis
 
 script:
-  - ls
-  - pwd
   # Current dir and temporary dir for storing new packaged charts and index files
-  #- REPO_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
   - REPO_DIR=/home/travis/build/kubenow/helm-charts
   - BUILD_DIR=$(mktemp -d)
 
@@ -55,7 +53,15 @@ script:
     else
     helm repo index --url ${REPO_URL} .;
     fi
+
   # Pop temporary directory from the stack
   - popd
   
   - ls ${BUILD_DIR}
+
+  # Clone repository and empty target branch
+  - git clone ${REPO_URL} out
+  - cd out
+  - git checkout ${TARGET_BR} || git checkout --orphan ${TARGET_BR}
+  - cd ..
+  - rm -rf out/**/* || exit 0
