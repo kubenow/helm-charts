@@ -12,7 +12,7 @@ before_script:
 
   # Add the keypair to the agent
   - chmod 600 .ssh-keys/travis
-  - eval "$(ssh-agent -s)"
+  - eval "$(ssh-agent -s -k)"
   - ssh-add .ssh-keys/travis
 
 script: true
