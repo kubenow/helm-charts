@@ -86,4 +86,7 @@ script:
 
   # We can push.
   - git push ${SSH_REPO}
+
+  # Kill ssh-agent process due to current Travis bug
+  # To be removed once bug is fixed
   - ssh-agent -k
