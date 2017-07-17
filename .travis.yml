@@ -4,7 +4,7 @@ env:
  global:
   - HELM_URL=https://storage.googleapis.com/kubernetes-helm
   - HELM_TGZ=helm-v2.4.1-linux-amd64.tar.gz
-  - TARGET_BR=feature/repo_test
+  - TARGET_BR=feature/gh-pages
 
 install:
   # Installing Helm
@@ -67,7 +67,7 @@ script:
   - cd ..
   - rm -rf out/* || exit 0
 
-  # Push new contents upstream
+  # Copying contents of BUILD_DIR to out folder
   - cp $BUILD_DIR/* out/
   - cd out
 
