@@ -84,4 +84,4 @@ script:
   - git commit -m "Deploy to test repository ${SHA}"
 
   # We can push.
-  - git push ${SSH_REPO} ${TARGET_BR}
+  - git push ${SSH_REPO}
