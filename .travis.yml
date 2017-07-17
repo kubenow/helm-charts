@@ -25,7 +25,7 @@ before_script:
 
   # Add the keypair to the agent
   - chmod 600 .ssh-keys/travis
-  - eval "$(ssh-agent -s -k)"
+  - eval "$(ssh-agent -s)"
   - ssh-add .ssh-keys/travis
 
 script:
@@ -86,3 +86,4 @@ script:
 
   # We can push.
   - git push ${SSH_REPO}
+  - ssh-agent -k
