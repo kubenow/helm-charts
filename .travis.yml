@@ -1,18 +1,6 @@
 language: python
 
-before_script:
-  # Decrypt key
-  - >
-    openssl aes-256-cbc
-    -K $encrypted_1f5633e62941_key
-    -iv $encrypted_1f5633e62941_iv
-    -in .ssh-keys/travis.enc
-    -out .ssh-keys/travis
-    -d
-
-  # Add the keypair to the agent
-  - chmod 600 .ssh-keys/travis
-  - eval "$(ssh-agent -s -k)"
-  - ssh-add .ssh-keys/travis
-
-script: true
+script:
+ - set -e
+ - ls *.tgz
+ - ls *.yaml
