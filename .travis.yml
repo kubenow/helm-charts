@@ -30,6 +30,7 @@ before_script:
 
 script:
   # Current dir and temporary dir for storing new packaged charts and index files
+  - set -e
   - REPO_DIR=/home/travis/build/kubenow/helm-charts
   - BUILD_DIR=$(mktemp -d)
 
