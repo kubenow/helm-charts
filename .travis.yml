@@ -70,7 +70,7 @@ script:
   - cp $BUILD_DIR/* out/
   - cd out
 
-  # Cjeck for changes
+  # Check for changes
   - if [ git diff --quiet ]; then
     echo "No changes, exiting.";
     exit 0;
@@ -84,4 +84,4 @@ script:
   - git commit -m "Deploy to test repository ${SHA}"
 
   # We can push.
-  - git push ${SSH_REPO} ${TARGET_BRANCH}
+  - git push ${SSH_REPO} ${TARGET_BR}
