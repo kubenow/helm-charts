@@ -1,0 +1,19 @@
+apiVersion: v1
+entries:
+  pachyderm:
+  - apiVersion: v1
+    created: 2017-07-17T13:42:01.099381956Z
+    description: Pachyderm is a large-scale container-based workflow engine that offers
+      complete version control for data and reproducible data processing
+    digest: acd30bf9fc25ae5243f1c27bf04ca09d59b4ab69149cec111d3de2eda435467a
+    home: https://pachyderm.io
+    maintainers:
+    - email: Jon.Novella@farmbio.uu.se
+      name: Jon Ander Novella
+    name: pachyderm
+    sources:
+    - https://github.com/pachyderm/pachyderm
+    urls:
+    - https://github.com/kubenow/helm-charts.git/pachyderm-0.1.0.tgz
+    version: 0.1.0
+generated: 2017-07-17T13:42:01.097724722Z
