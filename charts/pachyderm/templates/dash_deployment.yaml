@@ -1,0 +1,43 @@
+{{- if .Values.dash.enabled }}
+kind: Deployment
+apiVersion: extensions/v1beta1
+metadata:
+  name: dash
+  creationTimestamp: 
+  labels:
+    app: dash
+    suite: pachyderm
+    chart: "{{ .Chart.Name }}-{{ .Chart.Version }}"
+spec:
+  selector:
+    matchLabels:
+      app: dash
+      suite: pachyderm
+  template:
+    metadata:
+      name: dash
+      creationTimestamp: 
+      labels:
+        app: dash
+        suite: pachyderm
+    spec:
+      volumes: 
+      containers:
+      - name: dash
+        image: '{{ .Values.dash.image.repository }}:{{ .Values.dash.image.tag }}'
+        ports:
+        - name: dash-http
+          containerPort: 8080
+        resources: {}
+        imagePullPolicy: IfNotPresent
+      - name: grpc-proxy
+        image: '{{ .Values.dash.proxy.repository }}:{{ .Values.dash.proxy.tag }}'
+        ports:
+        - name: grpc-proxy-http
+          containerPort: 8081
+        resources: {}
+        imagePullPolicy: IfNotPresent
+      serviceAccountName: ''
+  strategy: {}
+status: {}
+{{- end }}

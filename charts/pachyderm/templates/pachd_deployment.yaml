@@ -65,8 +65,8 @@ spec:
           value: 1G
         resources:
           requests:
-            cpu: '{{ .Values.pachd.resources.requests.cpu }}'
-            memory: {{ .Values.pachd.resources.requests.memory }}
+            cpu: '{{ .Values.pachd.resources.cpu }}'
+            memory: {{ .Values.pachd.resources.memory }}
         volumeMounts:
         - name: '{{ .Values.pachd.volumes.volumeName }}'
           mountPath: "/pach"

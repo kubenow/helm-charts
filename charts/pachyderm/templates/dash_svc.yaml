@@ -1,0 +1,25 @@
+{{- if .Values.dash.enabled }}
+kind: Service
+apiVersion: v1
+metadata:
+  name: dash
+  creationTimestamp: 
+  labels:
+    app: dash
+    suite: pachyderm
+    chart: "{{ .Chart.Name }}-{{ .Chart.Version }}"
+spec:
+  ports:
+  - name: dash-http
+    port: 8080
+    targetPort: 8080
+    nodePort: 30080
+  - name: grpc-proxy-http
+    port: 8081
+    targetPort: 8081
+    nodePort: 30081
+  selector:
+    app: dash
+    suite: pachyderm
+  type: NodePort
+{{- end }}

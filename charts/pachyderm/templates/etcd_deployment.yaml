@@ -38,8 +38,8 @@ spec:
               containerPort: 2380
           resources:
            requests:
-            cpu: '{{ .Values.etcd.resources.requests.cpu }}'
-            memory: {{ .Values.etcd.resources.requests.memory }}
+            cpu: '{{ .Values.etcd.resources.cpu }}'
+            memory: {{ .Values.etcd.resources.memory }}
           volumeMounts:
             - name: '{{ .Values.etcd.volumes.volumeName }}'
               mountPath: "/var/data/etcd"

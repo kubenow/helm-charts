@@ -1,0 +1,14 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: pachd
+  annotations:
+    kubernetes.io/ingress.class: traefik
+spec:
+  rules:
+  - host: {{ .Values.pachd.host }}
+    http:
+      paths:
+      - backend:
+          serviceName: pachd
+          servicePort: api-grpc-port

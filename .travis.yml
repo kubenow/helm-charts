@@ -1,10 +1,15 @@
 language: python
 
+branches:
+  only:
+  - master
+
 env:
  global:
   - HELM_URL=https://storage.googleapis.com/kubernetes-helm
   - HELM_TGZ=helm-v2.4.1-linux-amd64.tar.gz
   - TARGET_BR=gh-pages
+  - REPO_DIR=/home/travis/build/kubenow/helm-charts
 
 install:
   # Installing Helm
@@ -29,9 +34,7 @@ before_script:
   - ssh-add .ssh-keys/travis
 
 script:
-  # Current dir and temporary dir for storing new packaged charts and index files
-  - set -e
-  - REPO_DIR=/home/travis/build/kubenow/helm-charts
+  # Temporary dir for storing new packaged charts and index files
   - BUILD_DIR=$(mktemp -d)
 
   # Useful URLs
@@ -49,15 +52,17 @@ script:
     done
 
   # Indexing of charts
-  - if [ -f index.yaml ]; then
-    helm repo index --url ${REPO_URL} --merge index.yaml .;
-    else
-    helm repo index --url ${REPO_URL} .;
-    fi
+  - >
+     if [ -f index.yaml ]; then
+      helm repo index --url ${REPO_URL} --merge index.yaml .;
+     else
+      helm repo index --url ${REPO_URL} .;
+     fi
 
   # Pop temporary directory from the stack
   - popd
   
+  # List all the contents that we will push
   - ls ${BUILD_DIR}
 
   # Clone repository and empty target branch
@@ -72,10 +77,11 @@ script:
   - cd out
 
   # Check for changes
-  - if [ git diff --quiet ]; then
-    echo "No changes, exiting.";
-    exit 0;
-    fi
+  - >
+     if [ git diff --quiet ]; then
+      echo "No changes, exiting.";
+      exit 0;
+     fi
 
   # Add all new files to staging phase and commit the changes
   - git config user.name "Travis CI"
