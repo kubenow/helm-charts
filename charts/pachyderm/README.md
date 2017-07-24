@@ -1,7 +1,7 @@
 Pachyderm Helm Chart
 ====================
 
-This chart can be used to deploy Pachyderm backed by Minio, a lightweight, AWS S3 compatible, object storage server.
+This chart can be used to deploy Pachyderm backed by Minio, a lightweight AWS S3 compatible object storage server.
 
 Prerequisites Details
 ---------------------
