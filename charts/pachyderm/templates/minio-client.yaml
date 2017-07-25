@@ -1,0 +1,37 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+ name: {{ .Values.minio.releaseName }}-minio-client
+spec:
+ template:
+  metadata:
+   name: minioclient
+   labels:
+    app: minioclient
+   annotations:
+    "helm.sh/hook": pre-install
+  spec:
+   containers:
+   - name: minioclient
+     image: minio/mc
+     env:
+      - name: MINIO_ACCESS_KEY
+        valueFrom:
+         secretKeyRef:
+          name: {{ .Values.minio.releaseName }}-minio-user
+          key: accesskey
+      - name: MINIO_SECRET_KEY
+        valueFrom:
+         secretKeyRef:
+          name: {{ .Values.minio.releaseName }}-minio-user
+          key: secretkey
+      - name: BUCKET_NAME
+        value: {{ .Values.minio.bucketName }}
+      - name: DOMAIN
+        value: {{ .Values.minio.releaseName }}-minio-svc.default.svc.cluster.local
+     resources:
+      limits:
+       cpu: "1"
+     command: ["/bin/sh"]
+     args: ["-c" , "mc config host add myalias http://$(DOMAIN):9000 $(MINIO_ACCESS_KEY) $(MINIO_SECRET_KEY); mc mb myalias/$(BUCKET_NAME);"]
+   restartPolicy: Never

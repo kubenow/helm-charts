@@ -1,0 +1,17 @@
+---
+kind: PersistentVolumeClaim
+apiVersion: v1
+metadata:
+  name: '{{ .Values.etcd.volumeClaim.name }}'
+  annotations:
+{{- if .Values.etcd.volumeClaim.storageClass }}
+    volume.beta.kubernetes.io/storage-class: {{ .Values.etcd.volumeClaim.storageClass | quote }}
+{{- else }}
+    volume.alpha.kubernetes.io/storage-class: default
+{{- end }}
+spec:
+  accessModes:
+    - '{{ .Values.etcd.volumeClaim.accessModes }}'
+  resources:
+    requests:
+      storage: '{{ .Values.etcd.volumeClaim.storage }}'

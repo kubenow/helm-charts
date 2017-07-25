@@ -1,0 +1,19 @@
+kind: Service
+apiVersion: v1
+metadata:
+  name: etcd
+  creationTimestamp:
+  labels:
+    app: etcd
+    suite: pachyderm
+    chart: "{{ .Chart.Name }}-{{ .Chart.Version }}"
+spec:
+  ports:
+    - name: client-port
+      port: 2379
+      targetPort: 0
+  selector:
+    app: etcd
+  type: NodePort
+status:
+ loadBalancer: {}
