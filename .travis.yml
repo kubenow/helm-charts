@@ -1,8 +1,8 @@
 language: python
 
-branches:
-  only:
-  - master
+#branches:
+  #only:
+  #- master
 
 env:
  global:
@@ -46,22 +46,23 @@ script:
   - pushd $BUILD_DIR
 
   # Iterate over all charts are package them
-  - for dir in `ls ${REPO_DIR}/charts`; do
-    helm dep update ${REPO_DIR}/charts/$dir;
-    helm package ${REPO_DIR}/charts/$dir;
-    done
+  - >
+     for dir in `ls ${REPO_DIR}/charts`; do
+      helm dep update ${REPO_DIR}/charts/$dir
+      helm package ${REPO_DIR}/charts/$dir
+     done
 
   # Indexing of charts
   - >
      if [ -f index.yaml ]; then
-      helm repo index --url ${REPO_URL} --merge index.yaml .;
+      helm repo index --url ${REPO_URL} --merge index.yaml .
      else
-      helm repo index --url ${REPO_URL} .;
+      helm repo index --url ${REPO_URL} .
      fi
 
   # Pop temporary directory from the stack
   - popd
-  
+
   # List all the contents that we will push
   - ls ${BUILD_DIR}
 
@@ -79,8 +80,8 @@ script:
   # Check for changes
   - >
      if [ git diff --quiet ]; then
-      echo "No changes, exiting.";
-      exit 0;
+      echo "No changes, exiting."
+      exit 0
      fi
 
   # Add all new files to staging phase and commit the changes
