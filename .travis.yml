@@ -10,6 +10,7 @@ env:
   - HELM_TGZ=helm-v2.4.1-linux-amd64.tar.gz
   - TARGET_BR=gh-pages
   - REPO_DIR=/home/travis/build/kubenow/helm-charts
+  - GH_URL=https://kubenow.github.io/helm-charts
 
 install:
   # Installing Helm
@@ -55,9 +56,9 @@ script:
   # Indexing of charts
   - >
      if [ -f index.yaml ]; then
-      helm repo index --url ${REPO_URL} --merge index.yaml .
+      helm repo index --url ${GH_URL} --merge index.yaml .
      else
-      helm repo index --url ${REPO_URL} .
+      helm repo index --url ${GH_URL} .
      fi
 
   # Pop temporary directory from the stack
