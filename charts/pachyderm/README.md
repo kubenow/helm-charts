@@ -49,6 +49,16 @@ The following tables lists the configurable parameters of the chart and their de
 
 Other parameters are also changeable. Please consult all available parameters in the `values.yaml` file.
 
+Accessing the pachd service
+-------------------
+In order to use Pachyderm, please login through ssh to the master node and install the Pachyderm client:
+
+```console
+$ curl -o /tmp/pachctl.deb -L https://github.com/pachyderm/pachyderm/releases/download/v1.5.1/pachctl_1.5.1_amd64.deb && sudo dpkg -i /tmp/pachctl.deb
+```
+
+Please note that the client version should correspond with the pachd service version. For more information please consult: http://pachyderm.readthedocs.io/en/latest/index.html
+
 Clean-up
 -------
 
@@ -56,5 +66,5 @@ In order to remove the Pachyderm release, you can execute the following commands
 
 ```console
 $ helm list
-$ helm delete <release-name>
+$ helm delete --purge <release-name>
 ```
