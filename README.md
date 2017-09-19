@@ -11,3 +11,5 @@ To be able to deploy Helm charts from this repository outside of a KubeNow clust
 ```console
 $ helm repo add charts https://kubenow.github.io/helm-charts/
 ```
+
+In a KubeNow cluster this repo should be added by default.
