@@ -33,9 +33,11 @@ before_script:
 script:
   # Check charts format
   - >
-     set -e;
      for dir in `ls ${REPO_DIR}/charts`; do
       helm lint ${REPO_DIR}/charts/$dir
+      if [ $? != 0 ]; then
+       exit 1
+      fi
      done
      
 after_success:
