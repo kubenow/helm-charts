@@ -33,7 +33,7 @@ before_script:
 script:
   # Check charts format
   - >
-     set -e
+     set -e;
      for dir in `ls ${REPO_DIR}/charts`; do
       helm lint ${REPO_DIR}/charts/$dir
      done
