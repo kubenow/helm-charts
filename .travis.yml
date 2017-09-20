@@ -34,6 +34,7 @@ script:
   # Check charts format
   - >
      for dir in `ls ${REPO_DIR}/charts`; do
+      echo "Linting ${REPO_DIR}/charts/${dir}..."
       helm lint ${REPO_DIR}/charts/$dir
      done
      
