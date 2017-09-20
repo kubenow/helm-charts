@@ -35,66 +35,74 @@ before_script:
   - ssh-add .ssh-keys/travis
 
 script:
-  # Temporary dir for storing new packaged charts and index files
-  - BUILD_DIR=$(mktemp -d)
-
-  # Useful URLs
-  - REPO_URL=`git config remote.origin.url`
-  - SSH_REPO=${REPO_URL/https:\/\/github.com\//git@github.com:}
-  - SHA=`git rev-parse --verify HEAD`
-
-  # Push temporary directory to the stack
-  - pushd $BUILD_DIR
-
-  # Iterate over all charts are package them
+  # Check charts format
   - >
      for dir in `ls ${REPO_DIR}/charts`; do
-      helm dep update ${REPO_DIR}/charts/$dir
-      helm package ${REPO_DIR}/charts/$dir
+      helm lint ${REPO_DIR}/charts/$dir
      done
-
-  # Indexing of charts
+     
+after_success:
   - >
-     if [ -f index.yaml ]; then
-      helm repo index --url ${GH_URL} --merge index.yaml .
-     else
-      helm repo index --url ${GH_URL} .
-     fi
+    if [ $TRAVIS_BRANCH = 'master' ] && [ $TRAVIS_PULL_REQUEST = 'false' ]; then
+    
+      # Temporary dir for storing new packaged charts and index files
+      BUILD_DIR=$(mktemp -d)
 
-  # Pop temporary directory from the stack
-  - popd
+      # Useful URLs
+      REPO_URL=`git config remote.origin.url`
+      SSH_REPO=${REPO_URL/https:\/\/github.com\//git@github.com:}
+      SHA=`git rev-parse --verify HEAD`
 
-  # List all the contents that we will push
-  - ls ${BUILD_DIR}
+      # Push temporary directory to the stack
+      pushd $BUILD_DIR
 
-  # Clone repository and empty target branch
-  - git clone ${REPO_URL} out
-  - cd out
-  - git checkout ${TARGET_BR} || git checkout --orphan ${TARGET_BR}
-  - cd ..
-  - rm -rf out/* || exit 0
+      # Iterate over all charts are package them
+      for dir in `ls ${REPO_DIR}/charts`; do
+       helm dep update ${REPO_DIR}/charts/$dir
+       helm package ${REPO_DIR}/charts/$dir
+      done
 
-  # Copying contents of BUILD_DIR to out folder
-  - cp $BUILD_DIR/* out/
-  - cd out
+      # Indexing of charts
+      if [ -f index.yaml ]; then
+       helm repo index --url ${GH_URL} --merge index.yaml .
+      else
+       helm repo index --url ${GH_URL} .
+      fi
 
-  # Check for changes
-  - >
-     if [ git diff --quiet ]; then
-      echo "No changes, exiting."
-      exit 0
-     fi
+      # Pop temporary directory from the stack
+      popd
 
-  # Add all new files to staging phase and commit the changes
-  - git config user.name "Travis CI"
-  - git config user.email "travis@travis-ci.org"
-  - git add -A .
-  - git status
-  - git commit -m "Deploy to test repository ${SHA}"
+      # List all the contents that we will push
+      ls ${BUILD_DIR}
 
-  # We can push.
-  - git push ${SSH_REPO}
+      # Clone repository and empty target branch
+      git clone ${REPO_URL} out
+      cd out
+      git checkout ${TARGET_BR} || git checkout --orphan ${TARGET_BR}
+      cd ..
+      rm -rf out/* || exit 0
 
-  # Kill ssh-agent process due to current Travis bug
-  # To be removed once bug is fixed
-  - ssh-agent -k
+      # Copying contents of BUILD_DIR to out folder
+      cp $BUILD_DIR/* out/
+      cd out
+
+      # Check for changes
+      if [ git diff --quiet ]; then
+       echo "No changes, exiting."
+       exit 0
+      fi
+
+      # Add all new files to staging phase and commit the changes
+      git config user.name "Travis CI"
+      git config user.email "travis@travis-ci.org"
+      git add -A .
+      git status
+      git commit -m "Deploy to test repository ${SHA}"
+
+      # We can push.
+      git push ${SSH_REPO}
+
+      # Kill ssh-agent process due to current Travis bug
+      # To be removed once bug is fixed
+      ssh-agent -k
+    fi
