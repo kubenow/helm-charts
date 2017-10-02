@@ -33,8 +33,8 @@ before_script:
 script:
   # Check charts format
   - >
-     for dir in `ls ${REPO_DIR}/charts`; do
-      helm lint ${REPO_DIR}/charts/$dir
+     for dir in `ls ${REPO_DIR}/kubenow`; do
+      helm lint ${REPO_DIR}/kubenow/$dir
       if [ $? != 0 ]; then
        travis_terminate 1
       fi
@@ -55,9 +55,9 @@ after_success:
       pushd $BUILD_DIR
 
       # Iterate over all charts are package them
-      for dir in `ls ${REPO_DIR}/charts`; do
-       helm dep update ${REPO_DIR}/charts/$dir
-       helm package ${REPO_DIR}/charts/$dir
+      for dir in `ls ${REPO_DIR}/kubenow`; do
+       helm dep update ${REPO_DIR}/kubenow/$dir
+       helm package ${REPO_DIR}/kubenow/$dir
       done
 
       # Indexing of charts

@@ -21,7 +21,7 @@ How to install the chart
 You should install the chart with the same release name, access key and secret key previously set in the Minio chart:
 
 ```console
-$ bin/helm repo add charts https://kubenow.github.io/helm-charts/
+$ bin/helm repo add kubenow https://kubenow.github.io/helm-charts/
 $ bin/helm install --name pachyderm --set minio.releaseName=minio-release,minio.accessKey=myaccesskey,minio.secretKey=mysecretkey charts/pachyderm
 ```
 
