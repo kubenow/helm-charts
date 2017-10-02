@@ -9,7 +9,7 @@ This repository contains Helm packages that are tested and maintained by the Kub
 To be able to deploy Helm charts from this repository outside of a KubeNow cluster, you should first run the following command:
 
 ```console
-$ helm repo add charts https://kubenow.github.io/helm-charts/
+$ helm repo add kubenow https://kubenow.github.io/helm-charts/
 ```
 
 In a KubeNow cluster this repo should be added by default.
