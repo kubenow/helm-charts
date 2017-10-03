@@ -8,12 +8,12 @@ This chart will deploy 3 cheese web pages with replica 2 (6 pods in total). The 
 You can install the Chart via Helm CLI:
 
 ```console
-helm install --name cheese --set domain=your.domain.name kubenow/cheese
+$ helm install --name cheese --set domain=your.domain.name kubenow/cheese
 ```
 
 ## Installing the Chart
 You can uninstall the Chart via Helm CLI:
 
 ```console
-helm delete cheese
+$ helm delete cheese
 ```
