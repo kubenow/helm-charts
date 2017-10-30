@@ -2,22 +2,22 @@
 # This is a YAML-formatted file.
 # Declare variables to be passed into your templates.
 pachd:
- host: sv.pachyderm
- secretName: minio-secret
+ secretName: pachyderm-storage-secret
  replicaCount: 1
  volumes:
   volumeName: pachdvol
-  secVolName: minio-secret
+  secVolName: pachyderm-storage-secret
  resources:
-  cpu: 1
-  memory: 5G
+  requests:
+   cpu: 1
+   memory: 2G
  image:
   repository: pachyderm/pachd
-  tag: 1.5.0
+  tag: 1.6.3
   pullPolicy: Always
  worker:
   repository: pachyderm/worker
-  tag: 1.5.0
+  tag: 1.6.3
 
 etcd:
  replicaCount: 1
@@ -26,14 +26,15 @@ etcd:
  volumeClaim: 
   name: etcdclaim
   # storageClass: <storageClass>
-  storage: 50G
+  storage: 100G
   accessModes: ReadWriteMany
  resources:
-  cpu: 1
-  memory: 4G
+  requests:
+   cpu: 1
+   memory: 2G
  image:
-  repository: quay.io/coreos/etcd
-  tag: v3.1.4
+  repository: pachyderm/etcd
+  tag: v3.2.7
   pullPolicy: IfNotPresent
 
 minio:
@@ -45,12 +46,13 @@ minio:
  secure: "0"
 
 dash:
- httphost: sv.pachdash
- grpchost: sv.grpc
+ httphost: dash.pach.sv
+ grpchost: grpc.pach.sv
+ fshost: fs.pach.sv
  enabled: true
  image:
-  tag: 0.3.30
+  tag: 0.5.12
   repository: pachyderm/dash
  proxy:
-  tag: 0.3.0
+  tag: 0.4.2
   repository: pachyderm/grpc-proxy
