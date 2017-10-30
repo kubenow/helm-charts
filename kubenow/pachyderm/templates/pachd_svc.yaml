@@ -16,6 +16,10 @@ spec:
       port: 651
       targetPort: 651
       nodePort: 30651
+    - name: api-http-port
+      port: 652
+      targetPort: 652
+      nodePort: 30652
   selector:
     app: pachd
   type: NodePort
