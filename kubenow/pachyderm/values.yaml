@@ -13,11 +13,11 @@ pachd:
    memory: 2G
  image:
   repository: pachyderm/pachd
-  tag: 1.6.3
+  tag: 1.6.5
   pullPolicy: Always
  worker:
   repository: pachyderm/worker
-  tag: 1.6.3
+  tag: 1.6.5
 
 etcd:
  replicaCount: 1
@@ -49,9 +49,9 @@ dash:
  httphost: dash.pach.sv
  grpchost: grpc.pach.sv
  fshost: fs.pach.sv
- enabled: true
+ enabled: false
  image:
-  tag: 0.5.12
+  tag: 0.5.13
   repository: pachyderm/dash
  proxy:
   tag: 0.4.2
