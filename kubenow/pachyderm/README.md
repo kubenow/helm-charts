@@ -33,9 +33,9 @@ The following tables lists the configurable parameters of the chart and their de
 | Parameter                | Description           | Default           |
 |--------------------------|-----------------------|-------------------|
 | `pachd.image.repository` | Container image name  | `pachyderm/pachd` |
-| `pachd.image.tag`        | Container image tag   | `1.6.3`           |
+| `pachd.image.tag`        | Container image tag   | `1.6.5`           |
 | `pachd.worker.repository`| Worker image name     | `pachyderm/worker`|
-| `pachd.worker.tag`       | Worker image tag      | `1.6.3`           |
+| `pachd.worker.tag`       | Worker image tag      | `1.6.5`           |
 | `pachd.replicaCount`     | Number of pachds      | `1`               |
 | `*.resources.memory`     | Memory request        | `2G`              |
 | `*.resources.cpu`        | CPU request           | `1`               |
@@ -43,9 +43,8 @@ The following tables lists the configurable parameters of the chart and their de
 | `minio.secretKey`        | Minio secret key      | `mysecretkey`     |
 | `etcd.resources.memory`  | Memory request (etcd) | `2G`              |
 | `etcd.resources.cpu`     | CPU request (etcd)    | `1`               |
-| `dash.enabled`           | Switch for the dash   | `true`            |
-| `dash.httphost`          | http host for dash    | `dash.pach.sv`     |
-| `dash.grpchost`          | grpc host for dash    | `grpc.pach.sv`         |
+| `dash.enabled`           | Switch for the dash   | `false`           |
+
 
 Other parameters are also changeable. Please consult all available parameters in the `values.yaml` file.
 
@@ -54,7 +53,7 @@ Accessing the pachd service
 In order to use Pachyderm, please login through ssh to the master node and install the Pachyderm client:
 
 ```console
-$ curl -o /tmp/pachctl.deb -L https://github.com/pachyderm/pachyderm/releases/download/v1.6.3/pachctl_1.6.3_amd64.deb && sudo dpkg -i /tmp/pachctl.deb
+$ curl -o /tmp/pachctl.deb -L https://github.com/pachyderm/pachyderm/releases/download/v1.6.5/pachctl_1.6.5_amd64.deb && sudo dpkg -i /tmp/pachctl.deb
 ```
 
 Please note that the client version should correspond with the pachd service version. For more information please consult: http://pachyderm.readthedocs.io/en/latest/index.html
