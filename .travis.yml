@@ -100,18 +100,19 @@ after_success:
 
 notifications:
   email: false
-  secure: >
-    Ge4Vs7+Qpf0dBSr7IMMUqF9jwz+fcpSwkhLN/2de23HkKYndLy8
-    uI1AXUbBfhlw9/9722E2Pljad6xJ95WqMc8rKNx4Ys59q8vB0Tg
-    m9ppqvMRzhmtiht2zwEVOuu5nj5pqefhijGLrmKFKtUuS0vxllt
-    4S5SY8/em14N3S4X+5z31KuSCUtdVPYATraXrA0/g0tu1EaCgOz
-   f5LkpPx8HOUQxyrMNZL06GDd5aWSEJ6bIpOMvAHv+gW0SJmOECsl
-   TxvXULKN4y923+xxZX9sQuWjVQVAZN6OKq737SMYLlcqY1JgRfRa
-   R1w5C0xPvfkCCgK8mQdvg20kij4ytZCjWE3ncFfvfl7efJiZeZ0b
-   /Ob7p/YI3pEJaZkvLlfdxvv4fgL3RDW0Fr8GvK2Ctq6zCxF8Ar1F
-   7Eq6+9Z6K4R9q363RGGtwFBjYPphZeSSiLG7elUbE8d7cSbzT7OH
-   BfxLQmgiOQhfGRpUXwO/5dXFCQTHaIMWK1nm3heibsAr+l1KUT01
-   W+57CTum2RgfdTsFtxQbIe2j5/Sb/NsuruOlf0CCgCK6bSAPYSAE
-   4dsqTMKRRmfjWpscO0qsyHNBFbLmD2dwH2ecyTgPiadZ9U+cZnQI
-   VxoxED6MbEcspOX+Zc00l12bszfcrSfibEInfgAOdYkGgHFGdefy
-   sfFMp4nUwOQ=
+  slack:
+    secure: >
+      Ge4Vs7+Qpf0dBSr7IMMUqF9jwz+fcpSwkhLN/2de23HkKYndLy8
+      uI1AXUbBfhlw9/9722E2Pljad6xJ95WqMc8rKNx4Ys59q8vB0Tg
+      m9ppqvMRzhmtiht2zwEVOuu5nj5pqefhijGLrmKFKtUuS0vxllt
+      4S5SY8/em14N3S4X+5z31KuSCUtdVPYATraXrA0/g0tu1EaCgOz
+     f5LkpPx8HOUQxyrMNZL06GDd5aWSEJ6bIpOMvAHv+gW0SJmOECsl
+     TxvXULKN4y923+xxZX9sQuWjVQVAZN6OKq737SMYLlcqY1JgRfRa
+     R1w5C0xPvfkCCgK8mQdvg20kij4ytZCjWE3ncFfvfl7efJiZeZ0b
+     /Ob7p/YI3pEJaZkvLlfdxvv4fgL3RDW0Fr8GvK2Ctq6zCxF8Ar1F
+     7Eq6+9Z6K4R9q363RGGtwFBjYPphZeSSiLG7elUbE8d7cSbzT7OH
+     BfxLQmgiOQhfGRpUXwO/5dXFCQTHaIMWK1nm3heibsAr+l1KUT01
+     W+57CTum2RgfdTsFtxQbIe2j5/Sb/NsuruOlf0CCgCK6bSAPYSAE
+     4dsqTMKRRmfjWpscO0qsyHNBFbLmD2dwH2ecyTgPiadZ9U+cZnQI
+     VxoxED6MbEcspOX+Zc00l12bszfcrSfibEInfgAOdYkGgHFGdefy
+     sfFMp4nUwOQ=
