@@ -2,7 +2,7 @@ apiVersion: v1
 entries:
   cheese:
   - apiVersion: v1
-    created: 2017-11-25T13:15:42.458307488Z
+    created: 2017-11-30T16:57:10.394774307Z
     description: 'Simple cheese deployment described by Traefik documentation: http://docs.traefik.io/user-guide/kubernetes/'
     digest: 8d903129c549d9aa0d64a67036163cc7a719ee984671c7ae6488698308fa7538
     home: https://hub.docker.com/r/errm/cheese
@@ -17,7 +17,7 @@ entries:
     version: 0.1.0
   pachyderm:
   - apiVersion: v1
-    created: 2017-11-25T13:15:42.459723576Z
+    created: 2017-11-30T16:57:10.395517634Z
     description: Pachyderm is a large-scale container-based workflow engine that offers
       complete version control for data and reproducible data processing
     digest: bcfccdfa9a62aa38a26d95fcb1d2baf34b4814ea3f2a7a532021917c2baa06df
@@ -31,4 +31,4 @@ entries:
     urls:
     - https://kubenow.github.io/helm-charts/pachyderm-0.4.3.tgz
     version: 0.4.3
-generated: 2017-11-25T13:15:42.456852644Z
+generated: 2017-11-30T16:57:10.394034671Z
