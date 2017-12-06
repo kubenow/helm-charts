@@ -1,0 +1,19 @@
+kind: Service
+apiVersion: v1
+metadata:
+  name: gluster-s3-service
+  labels:
+    glusterfs: s3-service
+    gluster-s3: service
+    chart: "{{ .Chart.Name }}-{{ .Chart.Version }}"
+spec:
+  ports:
+    - protocol: TCP
+      port: 8080
+      targetPort: 8080
+  selector:
+    glusterfs: s3-pod 
+  type: ClusterIP
+  sessionAffinity: None
+status:
+ loadBalancer: {}

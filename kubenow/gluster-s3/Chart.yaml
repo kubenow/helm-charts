@@ -1,0 +1,10 @@
+apiVersion: v1
+description: "S3 object storage interface for GlusterFS"
+name:  gluster-s3
+version: 1.1.0
+home: "https://github.com/gluster/gluster-kubernetes/"
+sources:
+  - "https://github.com/gluster/gluster-kubernetes/"
+maintainers:
+  - name: Jon Ander Novella
+    email: Jon.Novella@farmbio.uu.se

@@ -1,0 +1,17 @@
+# Default values for a Gluster-S3 deployment.
+# this is a yaml-formatted file.
+# declare variables to be passed into your templates.
+releaseName: s3-interface
+secretName: s3-secret
+
+account: account
+user: user
+password: 8VBdiwxL2s
+endpoint: "gluster-s3-service.default.svc.cluster.local:8080"
+bucketName: mybucket
+
+pvc1Name: main-gs3-pvc
+pvc1Request: 120Gi
+
+pvc2Name: meta-gs3-pvc
+pvc2Request: 10Gi

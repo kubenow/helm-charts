@@ -1,0 +1,53 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+ name: {{ .Values.releaseName }}-minio-client
+spec:
+ template:
+  metadata:
+   name: minio-client
+   labels:
+    app: minio-client
+   annotations:
+    "helm.sh/hook": post-install,post-upgrade
+    "helm.sh/hook-delete.policy": hook-succeeded
+  spec:
+   containers:
+   - name: minio-client
+     image: minio/mc
+     env:
+      - name: S3_ACCOUNT
+        valueFrom:
+         secretKeyRef:
+          name: {{ .Values.secretName }}
+          key: s3-account
+      - name: S3_USER
+        valueFrom:
+         secretKeyRef:
+          name: {{ .Values.secretName }}
+          key: s3-user
+      - name: S3_PASSWORD
+        valueFrom:
+         secretKeyRef:
+          name: {{ .Values.secretName }}
+          key: s3-password
+      - name: S3_ENDPOINT
+        valueFrom:
+         secretKeyRef:
+          name: {{ .Values.secretName }}
+          key: s3-endpoint
+      - name: S3_BUCKET
+        valueFrom:
+         secretKeyRef:
+          name: {{ .Values.secretName }}
+          key: s3-bucket 
+     resources:
+      limits:
+       cpu: "1"
+     command: ["/bin/sh"]
+     args: ["-c" ,
+            "mc config host add myalias http://$(S3_ENDPOINT) $(S3_ACCOUNT):$(S3_USER) $(S3_PASSWORD) S3v2; 
+             mc rm -r --force myalias/$(S3_BUCKET);
+             mc mb myalias/$(S3_BUCKET);"
+           ]
+   restartPolicy: OnFailure
