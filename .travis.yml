@@ -17,7 +17,7 @@ install:
   - PATH=`pwd`/linux-amd64/:$PATH
   - helm init --client-only
   # Installig pip deps
-  - sudo pip install ansible-lint=="${ANSIBLE_LINT_VERSION}"
+  - sudo pip install yamllint=="${YAMLLINT_VERSION}"
 
 before_script:
   # Decrypt key
