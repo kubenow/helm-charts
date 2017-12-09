@@ -1,3 +1,4 @@
+---
 # Default values for a Pachyderm Minio-based deployment.
 # This is a YAML-formatted file.
 # Declare variables to be passed into your templates.
@@ -23,7 +24,7 @@ etcd:
  replicaCount: 1
  volumes:
   volumeName: etcdvol
- volumeClaim: 
+ volumeClaim:
   name: etcdclaim
   # storageClass: <storageClass>
   storage: 100G
