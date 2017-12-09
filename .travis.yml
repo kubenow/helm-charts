@@ -1,12 +1,14 @@
+---
 language: python
 
 env:
- global:
-  - HELM_URL=https://storage.googleapis.com/kubernetes-helm
-  - HELM_TGZ=helm-v2.4.1-linux-amd64.tar.gz
-  - TARGET_BR=gh-pages
-  - REPO_DIR=/home/travis/build/kubenow/helm-charts
-  - GH_URL=https://kubenow.github.io/helm-charts
+  global:
+    - HELM_URL=https://storage.googleapis.com/kubernetes-helm
+    - HELM_TGZ=helm-v2.4.1-linux-amd64.tar.gz
+    - TARGET_BR=gh-pages
+    - REPO_DIR=/home/travis/build/kubenow/helm-charts
+    - GH_URL=https://kubenow.github.io/helm-charts
+    - YAMLLINT_VERSION=1.8.1
 
 install:
   # Installing Helm
@@ -14,6 +16,8 @@ install:
   - tar xzfv ${HELM_TGZ}
   - PATH=`pwd`/linux-amd64/:$PATH
   - helm init --client-only
+  # Installig pip deps
+  - sudo pip install ansible-lint=="${ANSIBLE_LINT_VERSION}"
 
 before_script:
   # Decrypt key
@@ -39,6 +43,10 @@ script:
        travis_terminate 1
       fi
      done
+  # Check YAML styling
+  - yamllint -c .yamllint.yml -s .travis.yml .yamllint.yml
+  - yamllint -c .yamllint.yml -s $(find . -type f -name "Chart.yaml")
+  - yamllint -c .yamllint.yml -s $(find . -type f -name "values.yaml")
 
 after_success:
   - >
