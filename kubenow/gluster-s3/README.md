@@ -20,6 +20,7 @@ The following tables lists the configurable parameters of the chart and their de
 | `pvc1Request`                | Main PVC request      | `120Gi`           |
 | `pvc2Name`                   | PVC2 name             | `meta-gs3-pvc`    |
 | `pvc2Request`                | Meta PVC request      | `10Gi`            |
+| `hostNetwork`                | How to expose the svc | `true`            |
 
 
 This service can be deployed with default settings via Helm using:

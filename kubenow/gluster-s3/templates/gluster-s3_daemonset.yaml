@@ -2,21 +2,27 @@
 kind: DaemonSet
 apiVersion: extensions/v1beta1
 metadata:
-  name: gluster-s3 
+  name: gluster-s3
   labels:
-    glusterfs: gluster-s3-deployment
-    gluster-s3: daemonset
+    gluster-s3: gluster-s3
     chart: "{{ .Chart.Name }}-{{ .Chart.Version }}"
 spec:
   selector:
     matchLabels:
-      glusterfs: s3-pod
+      gluster-s3: gluster-s3
   template:
     metadata:
       name: gluster-s3
       labels:
-        glusterfs: s3-pod 
+        gluster-s3: gluster-s3
+        chart: "{{ .Chart.Name }}-{{ .Chart.Version }}"
     spec:
+        hostNetwork: {{ .Values.hostNetwork }}
+        tolerations: 
+        - key: "dedicated"
+          operator: "Equal"
+          value: "fileserver"
+          effect: "NoSchedule"
         nodeSelector:
           storagenode: glusterfs
         containers:
@@ -52,7 +58,6 @@ spec:
           - name: glusterfs-cgroup
             readOnly: true
             mountPath: "/sys/fs/cgroup"
-          terminationMessagePath: "/dev/termination-log"
           securityContext:
             privileged: true
         volumes:
@@ -65,8 +70,6 @@ spec:
         - name: metadata-gluster-vol
           persistentVolumeClaim:
             claimName: {{ .Values.pvc2Name }}
-        restartPolicy: Always 
-        terminationGracePeriodSeconds: 30
         dnsPolicy: ClusterFirst
         serviceAccountName: default
         serviceAccount: default

@@ -15,3 +15,5 @@ pvc1Request: 120Gi
 
 pvc2Name: meta-gs3-pvc
 pvc2Request: 10Gi
+
+hostNetwork: true
