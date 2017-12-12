@@ -2,7 +2,7 @@
 apiVersion: batch/v1
 kind: Job
 metadata:
- name: {{ .Values.releaseName }}-minio-client
+ name: s3-interface-minio-client
 spec:
  template:
   metadata:
