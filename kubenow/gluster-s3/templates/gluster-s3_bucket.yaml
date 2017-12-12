@@ -20,27 +20,27 @@ spec:
       - name: S3_ACCOUNT
         valueFrom:
          secretKeyRef:
-          name: {{ .Values.secretName }}
+          name: s3-secret
           key: s3-account
       - name: S3_USER
         valueFrom:
          secretKeyRef:
-          name: {{ .Values.secretName }}
+          name: s3-secret
           key: s3-user
       - name: S3_PASSWORD
         valueFrom:
          secretKeyRef:
-          name: {{ .Values.secretName }}
+          name: s3-secret
           key: s3-password
       - name: S3_ENDPOINT
         valueFrom:
          secretKeyRef:
-          name: {{ .Values.secretName }}
+          name: s3-secret
           key: s3-endpoint
       - name: S3_BUCKET
         valueFrom:
          secretKeyRef:
-          name: {{ .Values.secretName }}
+          name: s3-secret
           key: s3-bucket 
      resources:
       limits:
