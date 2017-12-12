@@ -27,8 +27,8 @@ spec:
           storagenode: glusterfs
         containers:
         - name: gluster-s3
-          image: gluster/gluster-object:latest
-          imagePullPolicy: IfNotPresent
+          image: "{{ .Values.image }}:{{ .Values.imageTag }}"
+          imagePullPolicy: {{ .Values.imagePullPolicy }}
           ports:
           - name: gluster
             containerPort: 8080
@@ -37,17 +37,17 @@ spec:
             - name: S3_ACCOUNT
               valueFrom:
                 secretKeyRef:
-                  name: {{ .Values.secretName }}
+                  name: s3-secret
                   key: s3-account
             - name: S3_USER
               valueFrom:
                 secretKeyRef:
-                  name: {{ .Values.secretName }}
+                  name: s3-secret
                   key: s3-user
             - name: S3_PASSWORD
               valueFrom:
                 secretKeyRef:
-                  name: {{ .Values.secretName }}
+                  name: s3-secret
                   key: s3-password
           resources: {}
           volumeMounts:
@@ -66,10 +66,10 @@ spec:
             path: "/sys/fs/cgroup"
         - name: main-gluster-vol
           persistentVolumeClaim:
-            claimName: {{ .Values.pvc1Name }}
+            claimName: main-gs3-pvc
         - name: metadata-gluster-vol
           persistentVolumeClaim:
-            claimName: {{ .Values.pvc2Name }}
+            claimName: meta-gs3-pvc
         dnsPolicy: ClusterFirst
         serviceAccountName: default
         serviceAccount: default

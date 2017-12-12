@@ -14,5 +14,3 @@ spec:
     gluster-s3: gluster-s3 
   type: ClusterIP
   sessionAffinity: None
-status:
- loadBalancer: {}
