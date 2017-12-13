@@ -24,7 +24,7 @@ The following tables lists the configurable parameters of the chart and their de
 This service can be deployed with default settings via Helm using a simple command. You must deploy by setting a S3 <account>, <user> and <password>. It is strongly recommended that these contain more than 6 characters.
 
 ```console
-$ helm install --name s3-interface account=<account>,user=<user>,password=<password> kubenow/gluster-s3
+$ helm install --name s3-interface account=account,user=user,password=password kubenow/gluster-s3
 ```
 
 Deployment parameters can be set by using the `--set` flag as follows:
@@ -36,7 +36,7 @@ $ helm install --name s3-interface --set account=account,user=user,password=pass
 Clean-up
 -------
 
-In order to remove gluster-s3, you can execute the following commands:
+In order to remove Gluster-S3, you can execute the following commands:
 
 ```console
 $ helm list

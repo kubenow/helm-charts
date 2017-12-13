@@ -1,6 +1,3 @@
-# Default values for a Pachyderm Minio-based deployment.
-# This is a YAML-formatted file.
-# Declare variables to be passed into your templates.
 pachd:
  secretName: pachyderm-storage-secret
  replicaCount: 1
@@ -13,11 +10,11 @@ pachd:
    memory: 2G
  image:
   repository: pachyderm/pachd
-  tag: 1.6.5
+  tag: 1.6.6
   pullPolicy: Always
  worker:
   repository: pachyderm/worker
-  tag: 1.6.5
+  tag: 1.6.6
 
 etcd:
  replicaCount: 1
@@ -26,7 +23,7 @@ etcd:
  volumeClaim: 
   name: etcdclaim
   # storageClass: <storageClass>
-  storage: 100G
+  storage: 20G
   accessModes: ReadWriteMany
  resources:
   requests:
@@ -37,13 +34,13 @@ etcd:
   tag: v3.2.7
   pullPolicy: IfNotPresent
 
-minio:
- releaseName: "default"
- dom: "-minio-svc.default.svc.cluster.local:9000"
- bucketName: mybucket
- accessKey: myaccesskey
- secretKey: mysecretkey
+glusters3:
+ endpoint: "gluster-s3-service.default.svc.cluster.local:8080"
+ bucketName: ""
+ id: ""
+ key: ""
  secure: "0"
+ signature: "1"
 
 dash:
  httphost: dash.pach.sv
