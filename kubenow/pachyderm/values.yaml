@@ -20,7 +20,7 @@ etcd:
  replicaCount: 1
  volumes:
   volumeName: etcdvol
- volumeClaim: 
+ volumeClaim:
   name: etcdclaim
   # storageClass: <storageClass>
   storage: 20G
