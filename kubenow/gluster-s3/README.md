@@ -1,5 +1,5 @@
 Gluster-S3 Helm Chart
-====================
+=====================
 
 This chart can be used to deploy Gluster-S3, a S3 object storage interface for GlusterFS.
 
@@ -13,11 +13,13 @@ The following tables lists the configurable parameters of the chart and their de
 | `image`                      | Default image name    | `gluster/gluster-object`|
 | `imageTag`                   | Default image tag     | `latest`                |
 | `imagePullPolicy`            | Default pull policy   | `IfNotPresent`          |
-| `secretName`                 | Secret name           | `s3secret`              |
+| `account`                    | S3 account            | `""`                    |
+| `user`                       | S3 user               | `""`                    |
+| `password`                   | S3 password           | `""`                    |
 | `defaultBucket.enabled`      | S3 bucket creation    | `false`                 |
 | `defaultBucket.name`         | S3 bucket name        | `mybucket`              |
-| `pvc1Request`                | Main PVC request      | `120Gi`                 |
-| `pvc2Request`                | Meta PVC request      | `10Gi`                  |
+| `mainPvcRequest`             | Main PVC request      | `120Gi`                 |
+| `metaPvcRequest`             | Meta PVC request      | `10Gi`                  |
 | `hostNetwork`                | How to expose the svc | `false`                 |
 
 
