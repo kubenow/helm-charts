@@ -1,27 +1,28 @@
 Pachyderm Helm Chart
 ====================
 
-This chart can be used to deploy Pachyderm backed by Gluster-S3, a S3 compliant interface for GlusterFS.
+This chart can be used to deploy Pachyderm backed by Minio, a lightweight AWS S3 compatible object storage server.
 
 Prerequisites Details
 ---------------------
 
 -	Default deployment of KubeNow
--   Gluster-S3 deployment on Kubernetes using Helm
+-   Minio deployment on Kubernetes using Helm: https://github.com/kubernetes/charts/tree/master/stable/minio
 
-As an example, Gluster-S3 can be deployed with Helm by executing:
+As an example, Minio can be deployed by using Helm by executing:
 
 ```console
-$ helm install --name s3-interface --set account=<s3-account>,user=<s3-user>,password=<s3-password>,hostNetwork=false,defaultBucket.enabled=true,defaultBucket.name=<s3-bucket> kubenow/gluster-s3
+$ helm install --name minio-release --set mode=shared,replicas=3,accessKey=myaccesskey,secretKey=mysecretkey,serviceType=ClusterIP,persistence.size=50Gi,persistence.enabled=true stable/minio
 ```
 
 How to install the chart
 --------------------
 
-In order to inatall the chart, please use the same account, user, password and bucket name previously set in the Gluster-S3 chart. Please note that the glusters3-id must be specified as a combination of the S3 account and user: 
+You should install the chart with the same release name, access key and secret key previously set in the Minio chart:
 
 ```console
-$ helm install --name pachyderm --set glusters3.id=<s3-account>:<s3-user>,glusters3.key=<s3-password>,glusters3.bucketName=<s3-bucket> kubenow/pachyderm
+$ helm repo add kubenow https://kubenow.github.io/helm-charts/
+$ helm install --name pachyderm --set minio.releaseName=minio-release,minio.accessKey=myaccesskey,minio.secretKey=mysecretkey kubenow/pachyderm
 ```
 
 Helm chart settings
@@ -32,12 +33,14 @@ The following tables lists the configurable parameters of the chart and their de
 | Parameter                | Description           | Default           |
 |--------------------------|-----------------------|-------------------|
 | `pachd.image.repository` | Container image name  | `pachyderm/pachd` |
-| `pachd.image.tag`        | Container image tag   | `1.6.6`           |
+| `pachd.image.tag`        | Container image tag   | `1.6.5`           |
 | `pachd.worker.repository`| Worker image name     | `pachyderm/worker`|
-| `pachd.worker.tag`       | Worker image tag      | `1.6.6`           |
+| `pachd.worker.tag`       | Worker image tag      | `1.6.5`           |
 | `pachd.replicaCount`     | Number of pachds      | `1`               |
 | `*.resources.memory`     | Memory request        | `2G`              |
 | `*.resources.cpu`        | CPU request           | `1`               |
+| `minio.accessKey`        | Minio access key      | `myaccesskey`     |
+| `minio.secretKey`        | Minio secret key      | `mysecretkey`     |
 | `etcd.resources.memory`  | Memory request (etcd) | `2G`              |
 | `etcd.resources.cpu`     | CPU request (etcd)    | `1`               |
 | `dash.enabled`           | Switch for the dash   | `false`           |
@@ -50,7 +53,7 @@ Accessing the pachd service
 In order to use Pachyderm, please login through ssh to the master node and install the Pachyderm client:
 
 ```console
-$ curl -o /tmp/pachctl.deb -L https://github.com/pachyderm/pachyderm/releases/download/v1.6.6/pachctl_1.6.6_amd64.deb && sudo dpkg -i /tmp/pachctl.deb
+$ curl -o /tmp/pachctl.deb -L https://github.com/pachyderm/pachyderm/releases/download/v1.6.5/pachctl_1.6.5_amd64.deb && sudo dpkg -i /tmp/pachctl.deb
 ```
 
 Please note that the client version should correspond with the pachd service version. For more information please consult: http://pachyderm.readthedocs.io/en/latest/index.html

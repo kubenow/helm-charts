@@ -1,4 +1,3 @@
----
 {{- if .Values.defaultBucket.enabled }}
 apiVersion: batch/v1
 kind: Job
@@ -34,7 +33,10 @@ spec:
           name: s3-secret
           key: s3-password
       - name: S3_ENDPOINT
-        value: "gluster-s3-service.default.svc.cluster.local:8080"
+        valueFrom:
+         secretKeyRef:
+          name: s3-secret
+          key: s3-endpoint
       - name: S3_BUCKET
         valueFrom:
          secretKeyRef:
