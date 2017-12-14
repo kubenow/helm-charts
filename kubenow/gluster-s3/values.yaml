@@ -1,3 +1,4 @@
+---
 image: "gluster/gluster-object"
 imageTag: "latest"
 imagePullPolicy: "IfNotPresent"
@@ -5,12 +6,11 @@ imagePullPolicy: "IfNotPresent"
 account: ""
 user: ""
 password: ""
-endpoint: "gluster-s3-service.default.svc.cluster.local:8080"
 defaultBucket:
  enabled: false
- name: mybucket
+ name: default_bucket
 
-pvc1Request: 120Gi
-pvc2Request: 10Gi
+mainPvcRequest: 120Gi
+metaPvcRequest: 10Gi
 
 hostNetwork: false
