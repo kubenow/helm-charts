@@ -1,7 +1,30 @@
 ---
-# Default values for a Pachyderm Minio-based deployment.
-# This is a YAML-formatted file.
-# Declare variables to be passed into your templates.
+credentials: ""
+
+s3:
+ accessKey: ""
+ secretKey: ""
+ bucketName: ""
+ endpoint: ""
+ secure: "0"
+ signature: "0"
+
+google:
+ bucketName: ""
+
+amazon:
+ bucketName: ""
+ distribution: ""
+ id: ""
+ region: ""
+ secret: ""
+ token: ""
+
+microsoft:
+ container: ""
+ id: ""
+ secret: ""
+
 pachd:
  secretName: pachyderm-storage-secret
  replicaCount: 1
@@ -14,11 +37,11 @@ pachd:
    memory: 2G
  image:
   repository: pachyderm/pachd
-  tag: 1.6.5
+  tag: 1.6.6
   pullPolicy: Always
  worker:
   repository: pachyderm/worker
-  tag: 1.6.5
+  tag: 1.6.6
 
 etcd:
  replicaCount: 1
@@ -27,7 +50,7 @@ etcd:
  volumeClaim:
   name: etcdclaim
   # storageClass: <storageClass>
-  storage: 100G
+  storage: 20G
   accessModes: ReadWriteMany
  resources:
   requests:
@@ -37,23 +60,3 @@ etcd:
   repository: pachyderm/etcd
   tag: v3.2.7
   pullPolicy: IfNotPresent
-
-minio:
- releaseName: "default"
- dom: "-minio-svc.default.svc.cluster.local:9000"
- bucketName: mybucket
- accessKey: myaccesskey
- secretKey: mysecretkey
- secure: "0"
-
-dash:
- httphost: dash.pach.sv
- grpchost: grpc.pach.sv
- fshost: fs.pach.sv
- enabled: false
- image:
-  tag: 0.5.13
-  repository: pachyderm/dash
- proxy:
-  tag: 0.4.2
-  repository: pachyderm/grpc-proxy

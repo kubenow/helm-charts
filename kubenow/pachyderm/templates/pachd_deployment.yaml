@@ -44,7 +44,15 @@ spec:
         - name: NUM_SHARDS
           value: '16'
         - name: STORAGE_BACKEND
+          {{- if eq .Values.credentials "s3" }}
           value: MINIO
+          {{- else if eq .Values.credentials "google" }}
+          value: GOOGLE
+          {{- else if eq .Values.credentials "amazon" }}
+          value: AMAZON
+          {{- else if eq .Values.credentials "microsoft" }}
+          value: MICROSOFT
+          {{- end }}
         - name: STORAGE_HOST_PATH
         - name: PACHD_POD_NAMESPACE
           valueFrom:
