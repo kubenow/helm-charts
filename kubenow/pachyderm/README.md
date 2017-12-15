@@ -11,7 +11,7 @@ Prerequisites Details
 General chart settings
 ----------------------
 
-The following table lists the configurable parameters of pachd and their default values:
+The following table lists the configurable parameters of `pachd` and their default values:
 
 | Parameter                | Description           | Default           |
 |--------------------------|-----------------------|-------------------|
@@ -24,7 +24,7 @@ The following table lists the configurable parameters of pachd and their default
 | `*.resources.cpu`        | CPU request           | `1`               |
 
 
-Next table lists the configurable parameters of etcd and their default values:
+Next table lists the configurable parameters of `etcd` and their default values:
 
 | Parameter                | Description           | Default           |
 |--------------------------|-----------------------|-------------------|
@@ -37,7 +37,7 @@ Next table lists the configurable parameters of etcd and their default values:
 Storage backend settings
 ------------------------
 
-In order to set which Cloud storage credentials you want to use, please set the flag "credentials" with one of the following values: `s3 | google |amazon | microsoft`.
+In order to set which object store credentials you want to use, please set the flag `credentials` with one of the following values: `s3 | google | amazon | microsoft`.
 
 | Parameter                | Description           | Default           |
 |--------------------------|-----------------------|-------------------|
@@ -46,7 +46,7 @@ In order to set which Cloud storage credentials you want to use, please set the 
 
 Based on the storage credentials used, fill in the corresponding parameters in the `values.yaml` file.
 
-With S3 credentials, these are the configurable parameters:
+With `S3` credentials, these are the configurable parameters:
 
 | Parameter                | Description           | Default           |
 |--------------------------|-----------------------|-------------------|
@@ -58,14 +58,14 @@ With S3 credentials, these are the configurable parameters:
 | `s3.signature`           | S3 signature          | `""`              |
 
 
-With Google Cloud credentials, you must set the GCS bucket name:
+With `Google Cloud` credentials, you must define your `GCS bucket name`:
 
 | Parameter                | Description           | Default           |
 |--------------------------|-----------------------|-------------------|
 | `google.bucketName`      | GCS bucket name       | `""`              |
 
 
-On Amazon Web Services, please set the next values:
+On `Amazon Web Services`, please set the next values:
 
 | Parameter                | Description           | Default           |
 |--------------------------|-----------------------|-------------------|
@@ -77,7 +77,7 @@ On Amazon Web Services, please set the next values:
 | `amazon.token`           | Amazon token          | `""`              |
 
 
-As for Microsoft Azure, you must specify the following parameters:
+As for `Microsoft Azure`, you must specify the following parameters:
 
 | Parameter                | Description           | Default           |
 |--------------------------|-----------------------|-------------------|
