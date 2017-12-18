@@ -26,12 +26,13 @@ The following table lists the configurable parameters of `pachd` and their defau
 
 Next table lists the configurable parameters of `etcd` and their default values:
 
-| Parameter                | Description           | Default           |
-|--------------------------|-----------------------|-------------------|
-| `etcd.resources.memory`  | Memory request        | `2G`              |
-| `*.*.cpu`                | CPU request           | `1`               |
-| `*.volumeClaim.storage`  | Storage request       | `20`              |
-| `*.*.accessModes`        | Access mode for PV    | `ReadWriteMany`   |
+| Parameter                 | Description           | Default           |
+|---------------------------|-----------------------|-------------------|
+| `etcd.resources.memory`   | Memory request        | `2G`              |
+| `*.resources.cpu`         | CPU request           | `1`               |
+| `*.persistence.enabled`   | Enable persistence    | `true`            |
+| `*.persistence.size`      | Storage request       | `20G`              |
+| `*.persistence.accessMode`| Access mode for PV    | `ReadWriteOnce`   |
 
 
 Storage backend settings
@@ -44,7 +45,7 @@ In order to set which object store credentials you want to use, please set the f
 | `credentials`            | Backend credentials   | ""                |
 
 
-Based on the storage credentials used, fill in the corresponding parameters in the `values.yaml` file.
+Based on the storage credentials used, fill in the corresponding parameters for your object store:
 
 With `S3` credentials, these are the configurable parameters:
 
@@ -54,8 +55,8 @@ With `S3` credentials, these are the configurable parameters:
 | `s3.secretKey`           | S3 secret key         | `""`              |
 | `s3.bucketName`          | S3 bucket name        | `""`              |
 | `s3.endpoint`            | S3 endpoint           | `""`              |
-| `s3.secure`              | S3 secure             | `""`              |
-| `s3.signature`           | S3 signature          | `""`              |
+| `s3.secure`              | S3 secure             | `"0"`             |
+| `s3.signature`           | S3 signature          | `"0"`             |
 
 
 With `Google Cloud` credentials, you must define your `GCS bucket name`:
@@ -89,7 +90,7 @@ As for `Microsoft Azure`, you must specify the following parameters:
 How to install the chart
 ------------------------
 
-You should install the chart specifying each parameter using the `--set key=value[,key=value]` argument to helm install.
+You should install the chart specifying each parameter using the `--set key=value[,key=value]` argument to helm install. Please consult the `values.yaml` file for more information regarding the parameters.
 
 Alternatively, a YAML file that specifies the values for the parameters can be provided while installing the chart:
 

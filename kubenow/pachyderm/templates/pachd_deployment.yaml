@@ -2,33 +2,33 @@
 kind: Deployment
 apiVersion: extensions/v1beta1
 metadata:
-  name: pachd
-  creationTimestamp: 
+  name: {{ template "fullname" . }}
   labels:
-    app: pachd
-    suite: pachyderm
+    app: {{ template "fullname" . }}
     chart: "{{ .Chart.Name }}-{{ .Chart.Version }}"
+    release: "{{ .Release.Name }}"
+    heritage: "{{ .Release.Service }}"
+    suite: pachyderm
 spec:
   replicas: {{ .Values.pachd.replicaCount }}
   selector:
     matchLabels:
-      app: pachd
+      app: {{ template "fullname" . }}
       suite: pachyderm
   template:
     metadata:
-      name: pachd
-      creationTimestamp: 
+      name: {{ template "fullname" . }}
       labels:
-        app: pachd
+        app: {{ template "fullname" . }}
         suite: pachyderm
     spec:
       volumes:
-      - name: '{{ .Values.pachd.volumes.volumeName }}'
-      - name: '{{ .Values.pachd.volumes.secVolName }}'
+      - name: pachdvol
+      - name: pachyderm-storage-secret
         secret:
-          secretName: '{{ .Values.pachd.secretName }}'
+          secretName: {{ template "fullname" . }}-user
       containers:
-      - name: pachd
+      - name: {{ template "fullname" . }}
         image: '{{ .Values.pachd.image.repository }}:{{ .Values.pachd.image.tag }}'
         ports:
         - name: api-grpc-port
@@ -81,13 +81,13 @@ spec:
             cpu: '{{ .Values.pachd.resources.requests.cpu }}'
             memory: {{ .Values.pachd.resources.requests.memory }}
         volumeMounts:
-        - name: '{{ .Values.pachd.volumes.volumeName }}'
+        - name: pachdvol
           mountPath: "/pach"
-        - name: '{{ .Values.pachd.volumes.secVolName }}'
+        - name: pachyderm-storage-secret
           mountPath: "/pachyderm-storage-secret"
         imagePullPolicy: {{ .Values.pachd.image.pullPolicy }}
         securityContext:
           privileged: true
-      serviceAccountName: pachyderm
+      serviceAccountName: {{ template "fullname" . }}-sa
   strategy: {}
 status: {}

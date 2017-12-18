@@ -1,17 +1,24 @@
 ---
+## Set default credentials for object store
 credentials: ""
 
+## S3 endpoint (i.e: Minio server) credentials
 s3:
  accessKey: ""
  secretKey: ""
  bucketName: ""
+ # The endpoint should be something like: <mydomain>.<subdomain>:<port>
  endpoint: ""
+ # For 'true' set the value to 1
  secure: "0"
+ # For 'S3v2' signature set the value to 1
  signature: "0"
 
+## Google Cloud credentials
 google:
  bucketName: ""
 
+## Amazon Web Services credentials
 amazon:
  bucketName: ""
  distribution: ""
@@ -20,21 +27,16 @@ amazon:
  secret: ""
  token: ""
 
+## Microsoft Azure credentials
 microsoft:
  container: ""
  id: ""
  secret: ""
 
+## Set default image settings, resource requests and number of replicas of pachd
 pachd:
- secretName: pachyderm-storage-secret
  replicaCount: 1
- volumes:
-  volumeName: pachdvol
-  secVolName: pachyderm-storage-secret
- resources:
-  requests:
-   cpu: 1
-   memory: 2G
+ ## For available images please check: https://hub.docker.com/r/pachyderm/pachd/tags/
  image:
   repository: pachyderm/pachd
   tag: 1.6.6
@@ -42,21 +44,35 @@ pachd:
  worker:
   repository: pachyderm/worker
   tag: 1.6.6
-
-etcd:
- replicaCount: 1
- volumes:
-  volumeName: etcdvol
- volumeClaim:
-  name: etcdclaim
-  # storageClass: <storageClass>
-  storage: 20G
-  accessModes: ReadWriteMany
  resources:
   requests:
    cpu: 1
    memory: 2G
+
+## Set default image settings, number of replicas of etcd and persistence settings
+etcd:
+ replicaCount: 1
+ ##  For available images please check: https://hub.docker.com/r/pachyderm/etcd/tags
  image:
   repository: pachyderm/etcd
   tag: v3.2.7
   pullPolicy: IfNotPresent
+  ## Enable persistence using Persistent Volume Claims
+  ## ref: http://kubernetes.io/docs/user-guide/persistent-volumes/
+ persistence:
+  enabled: true
+  ## etcd data Persistent Volume Storage Class
+  ## If defined, storageClassName: <storageClass>
+  ## If set to "-", storageClassName: "", which disables dynamic provisioning
+  ## If undefined (the default) or set to null, no storageClassName spec is
+  ## set, choosing the default provisioner. (gp2 on AWS, standard on
+  ## GKE, AWS & OpenStack)
+  # storageClass: "-"
+  ## Set default PVC size
+  size: 20G
+  ## Set default PVC access mode: https://kubernetes.io/docs/concepts/storage/persistent-volumes/#access-modes
+  accessMode: ReadWriteOnce
+ resources:
+  requests:
+   cpu: 1
+   memory: 2G

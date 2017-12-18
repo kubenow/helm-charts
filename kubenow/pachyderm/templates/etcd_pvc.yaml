@@ -1,17 +1,20 @@
 ---
+{{- if .Values.etcd.persistence.enabled }}
 kind: PersistentVolumeClaim
 apiVersion: v1
 metadata:
-  name: '{{ .Values.etcd.volumeClaim.name }}'
-  annotations:
-{{- if .Values.etcd.volumeClaim.storageClass }}
-    volume.beta.kubernetes.io/storage-class: {{ .Values.etcd.volumeClaim.storageClass | quote }}
-{{- else }}
-    volume.alpha.kubernetes.io/storage-class: default
-{{- end }}
+  name: {{ template "etcd.fullname" . }}-pvc
 spec:
   accessModes:
-    - '{{ .Values.etcd.volumeClaim.accessModes }}'
+    - {{ .Values.etcd.persistence.accessMode | quote }}
   resources:
     requests:
-      storage: '{{ .Values.etcd.volumeClaim.storage }}'
+      storage: {{ .Values.etcd.persistence.size | quote }}
+{{- if .Values.etcd.persistence.storageClass }}
+{{- if (eq "-" .Values.etcd.persistence.storageClass) }}
+  storageClassName: ""
+{{- else }}
+  storageClassName: "{{ .Values.etcd.persistence.storageClass }}"
+{{- end }}
+{{- end }}
+{{- end }}

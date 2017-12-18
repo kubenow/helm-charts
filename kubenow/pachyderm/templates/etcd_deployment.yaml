@@ -1,32 +1,37 @@
+---
 apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
-  name: etcd
-  creationTimestamp: 
+  name: {{ template "etcd.fullname" . }}
   labels:
-    app: etcd
-    suite: pachyderm
+    app: {{ template "etcd.fullname" . }}
     chart: "{{ .Chart.Name }}-{{ .Chart.Version }}"
+    release: "{{ .Release.Name }}"
+    heritage: "{{ .Release.Service }}"
+    suite: pachyderm
 spec:
   replicas: {{ .Values.etcd.replicaCount }}
   selector:
     matchLabels:
-      app: etcd
+      app: {{ template "etcd.fullname" . }}
       suite: pachyderm
   template:
     metadata:
-      name: etcd
-      creationTimestamp: 
+      name: {{ template "etcd.fullname" . }}
       labels:
-        app: etcd
+        app: {{ template "etcd.fullname" . }}
         suite: pachyderm
     spec:
       volumes:
-        - name: '{{ .Values.etcd.volumes.volumeName }}'
+        - name: etcdvol
+        {{- if .Values.etcd.persistence.enabled }}
           persistentVolumeClaim:
-            claimName: '{{ .Values.etcd.volumeClaim.name }}'
+            claimName: {{ template "etcd.fullname" . }}-pvc
+        {{- else }}
+          emptyDir: {}
+        {{- end }}
       containers:
-        - name: etcd
+        - name: {{ template "etcd.fullname" . }}
           image: '{{ .Values.etcd.image.repository }}:{{ .Values.etcd.image.tag }}'
           command:
           - "/usr/local/bin/etcd"
@@ -44,6 +49,6 @@ spec:
             cpu: '{{ .Values.etcd.resources.requests.cpu }}'
             memory: {{ .Values.etcd.resources.requests.memory }}
           volumeMounts:
-            - name: '{{ .Values.etcd.volumes.volumeName }}'
+            - name: etcdvol
               mountPath: "/var/data/etcd"
           imagePullPolicy: {{ .Values.etcd.image.pullPolicy }}

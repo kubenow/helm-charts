@@ -1,11 +1,14 @@
+---
 kind: Service
 apiVersion: v1
 metadata:
-  name: pachd
+  name: {{ template "fullname" . }}-svc
   labels:
-    app: pachd
-    suite: pachyderm
+    app: {{ template "fullname" . }}
     chart: "{{ .Chart.Name }}-{{ .Chart.Version }}"
+    release: "{{ .Release.Name }}"
+    heritage: "{{ .Release.Service }}"
+    suite: pachyderm
 spec:
   ports:
     - name: api-grpc-port
@@ -21,5 +24,5 @@ spec:
       targetPort: 652
       nodePort: 30652
   selector:
-    app: pachd
+    app: {{ template "fullname" . }}
   type: NodePort
