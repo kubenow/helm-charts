@@ -10,7 +10,7 @@ metadata:
     heritage: "{{ .Release.Service }}"
     suite: pachyderm
 spec:
-  replicas: {{ .Values.etcd.replicaCount }}
+  replicas: 1
   selector:
     matchLabels:
       app: {{ template "etcd.fullname" . }}

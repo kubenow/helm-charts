@@ -9,4 +9,6 @@ sources:
   - "https://github.com/pachyderm/pachyderm"
 maintainers:
   - name: Jon Ander Novella
-    email: Jon.Novella@farmbio.uu.se
+    email: novella.uu@gmail.com
+  - name: Daniel Whitenack
+    email: whitenack.daniel@gmail.com

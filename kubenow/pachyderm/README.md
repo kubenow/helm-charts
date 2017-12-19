@@ -1,7 +1,7 @@
 Pachyderm Helm Chart
 ====================
 
-This chart can be used to deploy Pachyderm on different Cloud providers.
+Pachyderm is a language-agnostic and cloud infrastructure-agnostic large-scale data processing framework based on software containers. This chart can be used to deploy Pachyderm backed by object stores of different Cloud providers.
 
 Prerequisites Details
 ---------------------
@@ -17,22 +17,28 @@ The following table lists the configurable parameters of `pachd` and their defau
 |--------------------------|-----------------------|-------------------|
 | `pachd.image.repository` | Container image name  | `pachyderm/pachd` |
 | `*.image.tag`            | Container image tag   | `1.6.6`           |
+| `*.image.pullPolicy`     | Image pull policy     | `Always`          |
 | `*.worker.repository`    | Worker image name     | `pachyderm/worker`|
 | `*.worker.tag`           | Worker image tag      | `1.6.6`           |
 | `*.replicaCount`         | Number of pachds      | `1`               |
 | `*.resources.memory`     | Memory request        | `2G`              |
 | `*.resources.cpu`        | CPU request           | `1`               |
+| `*.imagePullPolicy`      | Image pull policy     | `Always`          |
 
 
 Next table lists the configurable parameters of `etcd` and their default values:
 
-| Parameter                 | Description           | Default           |
-|---------------------------|-----------------------|-------------------|
-| `etcd.resources.memory`   | Memory request        | `2G`              |
-| `*.resources.cpu`         | CPU request           | `1`               |
-| `*.persistence.enabled`   | Enable persistence    | `true`            |
-| `*.persistence.size`      | Storage request       | `20G`              |
-| `*.persistence.accessMode`| Access mode for PV    | `ReadWriteOnce`   |
+| Parameter                   | Description           | Default           |
+|-----------------------------|-----------------------|-------------------|
+| `etcd.image.repository`     | Container image name  | `pachyderm/etcd`  |
+| `*.image.tag`               | Container image tag   | `v3.2.7`          |
+| `*.image.pullPolicy`        | Image pull policy     | `IfNotPresent`    |
+| `*.resources.memory`        | Memory request        | `2G`              |
+| `*.resources.cpu`           | CPU request           | `1`               |
+| `*.persistence.enabled`     | Enable persistence    | `true`            |
+| `*.persistence.size`        | Storage request       | `20G`             |
+| `*.persistence.accessMode`  | Access mode for PV    | `ReadWriteOnce`   |
+| `*.persistence.storageClass`| PVC storage class     | `nil`             |
 
 
 Storage backend settings
@@ -45,9 +51,9 @@ In order to set which object store credentials you want to use, please set the f
 | `credentials`            | Backend credentials   | ""                |
 
 
-Based on the storage credentials used, fill in the corresponding parameters for your object store:
+Based on the storage credentials used, fill in the corresponding parameters for your object store.
 
-With `S3` credentials, these are the configurable parameters:
+With `S3 endpoint` credentials (such as Minio credentials), these are the configurable parameters:
 
 | Parameter                | Description           | Default           |
 |--------------------------|-----------------------|-------------------|
@@ -90,13 +96,19 @@ As for `Microsoft Azure`, you must specify the following parameters:
 How to install the chart
 ------------------------
 
-You should install the chart specifying each parameter using the `--set key=value[,key=value]` argument to helm install. Please consult the `values.yaml` file for more information regarding the parameters.
+You should install the chart specifying each parameter using the `--set key=value[,key=value]` argument to helm install. Please consult the `values.yaml` file for more information regarding the parameters. For example:
+
+
+```console
+$ helm install --name my-release \
+--set credentials=s3,s3.accessKey=myaccesskey,s3.secretKey=mysecretkey,s3.bucketName=default_bucket,s3.endpoint=domain.subdomain:8080,etcd.persistence.accessMode=ReadWriteMany \
+stable/pachyderm
+```
 
 Alternatively, a YAML file that specifies the values for the parameters can be provided while installing the chart:
 
 ```console
-$ helm repo add kubenow https://kubenow.github.io/helm-charts/
-$ helm install --name pachyderm -f values.yaml kubenow/pachyderm
+$ helm install --name my-release -f values.yaml stable/pachyderm
 ```
 
 Accessing the pachd service
@@ -108,7 +120,7 @@ In order to use Pachyderm, please login through ssh to the master node and insta
 $ curl -o /tmp/pachctl.deb -L https://github.com/pachyderm/pachyderm/releases/download/v1.6.6/pachctl_1.6.6_amd64.deb && sudo dpkg -i /tmp/pachctl.deb
 ```
 
-Please note that the client version should correspond with the pachd service version. For more information please consult: http://pachyderm.readthedocs.io/en/latest/index.html
+Please note that the client version should correspond with the pachd service version. For more information please consult: http://pachyderm.readthedocs.io/en/latest/index.html. Also, if you have your kubernetes client properly configured to talk with your remote cluster, you can simply install `pachctl` on your local machine and execute: `pachctl port-forward &`.
 
 Clean-up
 -------

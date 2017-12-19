@@ -7,11 +7,11 @@ s3:
  accessKey: ""
  secretKey: ""
  bucketName: ""
- # The endpoint should be something like: <mydomain>.<subdomain>:<port>
+ ## The endpoint should be something like: <mydomain>.<subdomain>:<port>
  endpoint: ""
- # For 'true' set the value to 1
+ ## For 'true' set the value to 1
  secure: "0"
- # For 'S3v2' signature set the value to 1
+ ## For 'S3v2' signature, set the value to 1. For 'S3v4', set this value to 0
  signature: "0"
 
 ## Google Cloud credentials
@@ -21,6 +21,7 @@ google:
 ## Amazon Web Services credentials
 amazon:
  bucketName: ""
+ ## The distribution parameter is often an empty string
  distribution: ""
  id: ""
  region: ""
@@ -49,10 +50,9 @@ pachd:
    cpu: 1
    memory: 2G
 
-## Set default image settings, number of replicas of etcd and persistence settings
+## Set default image settings and persistence settings of etcd
 etcd:
- replicaCount: 1
- ##  For available images please check: https://hub.docker.com/r/pachyderm/etcd/tags
+ ## For available images please check: https://hub.docker.com/r/pachyderm/etcd/tags
  image:
   repository: pachyderm/etcd
   tag: v3.2.7
