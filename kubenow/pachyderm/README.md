@@ -8,7 +8,7 @@ Pachyderm is a language-agnostic and cloud infrastructure-agnostic large-scale d
 Prerequisites Details
 ---------------------
 
--	Dynamic provisioning of PVs
+-	Dynamic provisioning of PVs (for non-local deployments)
 
 General chart settings
 ----------------------
@@ -23,8 +23,8 @@ The following table lists the configurable parameters of `pachd` and their defau
 | `*.worker.repository`    | Worker image name     | `pachyderm/worker`|
 | `*.worker.tag`           | Worker image tag      | `1.6.6`           |
 | `*.replicaCount`         | Number of pachds      | `1`               |
-| `*.resources.memory`     | Memory request        | `2G`              |
-| `*.resources.cpu`        | CPU request           | `1`               |
+| `*.resources.memory`     | Memory request        | `512M`            |
+| `*.resources.cpu`        | CPU request           | `250m`            |
 
 
 Next table lists the configurable parameters of `etcd` and their default values:
@@ -34,9 +34,9 @@ Next table lists the configurable parameters of `etcd` and their default values:
 | `etcd.image.repository`     | Container image name  | `pachyderm/etcd`  |
 | `*.image.tag`               | Container image tag   | `v3.2.7`          |
 | `*.image.pullPolicy`        | Image pull policy     | `IfNotPresent`    |
-| `*.resources.memory`        | Memory request        | `2G`              |
-| `*.resources.cpu`           | CPU request           | `1`               |
-| `*.persistence.enabled`     | Enable persistence    | `true`            |
+| `*.resources.memory`        | Memory request        | `256M`            |
+| `*.resources.cpu`           | CPU request           | `250m`            |
+| `*.persistence.enabled`     | Enable persistence    | `false`           |
 | `*.persistence.size`        | Storage request       | `20G`             |
 | `*.persistence.accessMode`  | Access mode for PV    | `ReadWriteOnce`   |
 | `*.persistence.storageClass`| PVC storage class     | `nil`             |
@@ -45,7 +45,7 @@ Next table lists the configurable parameters of `etcd` and their default values:
 Storage backend settings
 ------------------------
 
-In order to set which object store credentials you want to use, please set the flag `credentials` with one of the following values: `s3 | google | amazon | microsoft`.
+In order to set which object store credentials you want to use, please set the flag `credentials` with one of the following values: `local | s3 | google | amazon | microsoft`.
 
 | Parameter                | Description           | Default           |
 |--------------------------|-----------------------|-------------------|
@@ -54,7 +54,9 @@ In order to set which object store credentials you want to use, please set the f
 
 Based on the storage credentials used, fill in the corresponding parameters for your object store.
 
-With `S3 endpoint` credentials (such as Minio credentials), these are the configurable parameters:
+-	The `local` installation will deploy Pachyderm on your local Kubernetes cluster (i.e: minikube) backed by your local storage unit. 
+
+-	With `S3 endpoint` credentials (such as Minio credentials), these are the configurable parameters:
 
 | Parameter                | Description           | Default           |
 |--------------------------|-----------------------|-------------------|
@@ -66,14 +68,14 @@ With `S3 endpoint` credentials (such as Minio credentials), these are the config
 | `s3.signature`           | S3 signature          | `"0"`             |
 
 
-With `Google Cloud` credentials, you must define your `GCS bucket name`:
+-	With `Google Cloud` credentials, you must define your `GCS bucket name`:
 
 | Parameter                | Description           | Default           |
 |--------------------------|-----------------------|-------------------|
 | `google.bucketName`      | GCS bucket name       | `""`              |
 
 
-On `Amazon Web Services`, please set the next values:
+-	On `Amazon Web Services`, please set the next values:
 
 | Parameter                | Description           | Default           |
 |--------------------------|-----------------------|-------------------|
@@ -85,7 +87,7 @@ On `Amazon Web Services`, please set the next values:
 | `amazon.token`           | Amazon token          | `""`              |
 
 
-As for `Microsoft Azure`, you must specify the following parameters:
+-	As for `Microsoft Azure`, you must specify the following parameters:
 
 | Parameter                | Description           | Default           |
 |--------------------------|-----------------------|-------------------|
@@ -97,12 +99,18 @@ As for `Microsoft Azure`, you must specify the following parameters:
 How to install the chart
 ------------------------
 
+The default installation will deploy Pachyderm on your local Kubernetes cluster:
+
+```console
+$ helm install --name my-release stable/pachyderm
+```
+
 You should install the chart specifying each parameter using the `--set key=value[,key=value]` argument to helm install. Please consult the `values.yaml` file for more information regarding the parameters. For example:
 
 
 ```console
 $ helm install --name my-release \
---set credentials=s3,s3.accessKey=myaccesskey,s3.secretKey=mysecretkey,s3.bucketName=default_bucket,s3.endpoint=domain.subdomain:8080,etcd.persistence.accessMode=ReadWriteMany,"signature=\"1\"","secure=\"1\"" \
+--set credentials=s3,s3.accessKey=myaccesskey,s3.secretKey=mysecretkey,s3.bucketName=default_bucket,s3.endpoint=domain.subdomain:8080,etcd.persistence.enabled=true,etcd.persistence.accessMode=ReadWriteMany,"signature=\"1\"","secure=\"1\"" \
 stable/pachyderm
 ```
 

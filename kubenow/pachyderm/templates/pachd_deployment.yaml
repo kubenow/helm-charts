@@ -24,6 +24,10 @@ spec:
     spec:
       volumes:
       - name: pachdvol
+        {{- if eq .Values.credentials "local" }}
+        hostPath:
+         path: "/var/pachyderm/pachd"
+        {{- end }}
       - name: pachyderm-storage-secret
         secret:
           secretName: {{ template "fullname" . }}-user
@@ -52,8 +56,13 @@ spec:
           value: AMAZON
           {{- else if eq .Values.credentials "microsoft" }}
           value: MICROSOFT
+          {{- else if eq .Values.credentials "local" }}
+          value: LOCAL
           {{- end }}
         - name: STORAGE_HOST_PATH
+          {{- if eq .Values.credentials "local" }}
+          value: "/var/pachyderm/pachd"
+          {{- end }}
         - name: PACHD_POD_NAMESPACE
           valueFrom:
             fieldRef:

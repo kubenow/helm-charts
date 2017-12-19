@@ -1,6 +1,6 @@
 ---
 ## Set default credentials for object store
-credentials: ""
+credentials: "local"
 
 ## S3 endpoint (i.e: Minio server) credentials
 s3:
@@ -47,8 +47,9 @@ pachd:
   tag: 1.6.6
  resources:
   requests:
-   cpu: 1
-   memory: 2G
+   ## For non-local deployments, 1 cpu and 2G of memory is recommended
+   cpu: 250m
+   memory: 512M
 
 ## Set default image settings and persistence settings of etcd
 etcd:
@@ -60,7 +61,7 @@ etcd:
   ## Enable persistence using Persistent Volume Claims
   ## ref: http://kubernetes.io/docs/user-guide/persistent-volumes/
  persistence:
-  enabled: true
+  enabled: false
   ## etcd data Persistent Volume Storage Class
   ## If defined, storageClassName: <storageClass>
   ## If set to "-", storageClassName: "", which disables dynamic provisioning
@@ -74,5 +75,6 @@ etcd:
   accessMode: ReadWriteOnce
  resources:
   requests:
-   cpu: 1
-   memory: 2G
+   ## For non-local deployments, 1 cpu and 2G of memory is recommended
+   cpu: 250m
+   memory: 256M

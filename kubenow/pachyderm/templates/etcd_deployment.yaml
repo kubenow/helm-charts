@@ -28,7 +28,8 @@ spec:
           persistentVolumeClaim:
             claimName: {{ template "etcd.fullname" . }}-pvc
         {{- else }}
-          emptyDir: {}
+          hostPath:
+           path: "/var/pachyderm/etcd"
         {{- end }}
       containers:
         - name: {{ template "etcd.fullname" . }}
