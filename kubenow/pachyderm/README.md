@@ -64,8 +64,8 @@ Based on the storage credentials used, fill in the corresponding parameters for 
 | `s3.secretKey`           | S3 secret key         | `""`              |
 | `s3.bucketName`          | S3 bucket name        | `""`              |
 | `s3.endpoint`            | S3 endpoint           | `""`              |
-| `s3.secure`              | S3 secure             | `"0"`             |
-| `s3.signature`           | S3 signature          | `"0"`             |
+| `s3.secure`              | S3 secure             | `0`               |
+| `s3.signature`           | S3 signature          | `0`               |
 
 
 -	With `Google Cloud` credentials, you must define your `GCS bucket name`:

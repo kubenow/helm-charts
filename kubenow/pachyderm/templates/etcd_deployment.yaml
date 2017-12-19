@@ -2,7 +2,7 @@
 apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
-  name: {{ template "etcd.fullname" . }}
+  name: etcd
   labels:
     app: {{ template "etcd.fullname" . }}
     chart: "{{ .Chart.Name }}-{{ .Chart.Version }}"
@@ -17,7 +17,7 @@ spec:
       suite: pachyderm
   template:
     metadata:
-      name: {{ template "etcd.fullname" . }}
+      name: etcd
       labels:
         app: {{ template "etcd.fullname" . }}
         suite: pachyderm
