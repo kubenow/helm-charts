@@ -4,7 +4,7 @@ apiVersion: extensions/v1beta1
 metadata:
   name: pachd
   labels:
-    app: {{ template "fullname" . }}
+    app: pachd
     chart: "{{ .Chart.Name }}-{{ .Chart.Version }}"
     release: "{{ .Release.Name }}"
     heritage: "{{ .Release.Service }}"
@@ -13,13 +13,13 @@ spec:
   replicas: {{ .Values.pachd.replicaCount }}
   selector:
     matchLabels:
-      app: {{ template "fullname" . }}
+      app: pachd
       suite: pachyderm
   template:
     metadata:
       name: pachd
       labels:
-        app: {{ template "fullname" . }}
+        app: pachd
         suite: pachyderm
     spec:
       volumes:
@@ -32,7 +32,7 @@ spec:
         secret:
           secretName: {{ template "fullname" . }}-user
       containers:
-      - name: {{ template "fullname" . }}
+      - name: pachd
         image: '{{ .Values.pachd.image.repository }}:{{ .Values.pachd.image.tag }}'
         ports:
         - name: api-grpc-port

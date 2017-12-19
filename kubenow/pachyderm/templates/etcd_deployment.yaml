@@ -32,7 +32,7 @@ spec:
            path: "/var/pachyderm/etcd"
         {{- end }}
       containers:
-        - name: {{ template "etcd.fullname" . }}
+        - name: etcd
           image: '{{ .Values.etcd.image.repository }}:{{ .Values.etcd.image.tag }}'
           command:
           - "/usr/local/bin/etcd"
