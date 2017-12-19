@@ -23,7 +23,6 @@ The following table lists the configurable parameters of `pachd` and their defau
 | `*.replicaCount`         | Number of pachds      | `1`               |
 | `*.resources.memory`     | Memory request        | `2G`              |
 | `*.resources.cpu`        | CPU request           | `1`               |
-| `*.imagePullPolicy`      | Image pull policy     | `Always`          |
 
 
 Next table lists the configurable parameters of `etcd` and their default values:
@@ -101,7 +100,7 @@ You should install the chart specifying each parameter using the `--set key=valu
 
 ```console
 $ helm install --name my-release \
---set credentials=s3,s3.accessKey=myaccesskey,s3.secretKey=mysecretkey,s3.bucketName=default_bucket,s3.endpoint=domain.subdomain:8080,etcd.persistence.accessMode=ReadWriteMany \
+--set credentials=s3,s3.accessKey=myaccesskey,s3.secretKey=mysecretkey,s3.bucketName=default_bucket,s3.endpoint=domain.subdomain:8080,etcd.persistence.accessMode=ReadWriteMany,"signature=\"1\"","secure=\"1\"" \
 stable/pachyderm
 ```
 
