@@ -3,6 +3,8 @@ Pachyderm Helm Chart
 
 Pachyderm is a language-agnostic and cloud infrastructure-agnostic large-scale data processing framework based on software containers. This chart can be used to deploy Pachyderm backed by object stores of different Cloud providers.
 
+* https://pachyderm.io
+
 Prerequisites Details
 ---------------------
 
