@@ -1,0 +1,16 @@
+---
+image: "gluster/gluster-object"
+imageTag: "latest"
+imagePullPolicy: "IfNotPresent"
+
+account: ""
+user: ""
+password: ""
+defaultBucket:
+ enabled: false
+ name: default_bucket
+
+mainPvcRequest: 120Gi
+metaPvcRequest: 10Gi
+
+hostNetwork: false

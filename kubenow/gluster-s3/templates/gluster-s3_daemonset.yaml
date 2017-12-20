@@ -1,0 +1,76 @@
+---
+kind: DaemonSet
+apiVersion: extensions/v1beta1
+metadata:
+  name: gluster-s3
+  labels:
+    gluster-s3: gluster-s3
+    chart: "{{ .Chart.Name }}-{{ .Chart.Version }}"
+spec:
+  selector:
+    matchLabels:
+      gluster-s3: gluster-s3
+  template:
+    metadata:
+      name: gluster-s3
+      labels:
+        gluster-s3: gluster-s3
+        chart: "{{ .Chart.Name }}-{{ .Chart.Version }}"
+    spec:
+        hostNetwork: {{ .Values.hostNetwork }}
+        tolerations: 
+        - key: "dedicated"
+          operator: "Equal"
+          value: "fileserver"
+          effect: "NoSchedule"
+        nodeSelector:
+          storagenode: glusterfs
+        containers:
+        - name: gluster-s3
+          image: "{{ .Values.image }}:{{ .Values.imageTag }}"
+          imagePullPolicy: {{ .Values.imagePullPolicy }}
+          ports:
+          - name: gluster
+            containerPort: 8080
+            protocol: TCP
+          env:
+            - name: S3_ACCOUNT
+              valueFrom:
+                secretKeyRef:
+                  name: s3-secret
+                  key: s3-account
+            - name: S3_USER
+              valueFrom:
+                secretKeyRef:
+                  name: s3-secret
+                  key: s3-user
+            - name: S3_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: s3-secret
+                  key: s3-password
+          resources: {}
+          volumeMounts:
+          - name: main-gluster-vol
+            mountPath: "/mnt/gluster-object/{{ .Values.account }}"
+          - name: metadata-gluster-vol
+            mountPath: "/mnt/gluster-object/gsmetadata"
+          - name: glusterfs-cgroup
+            readOnly: true
+            mountPath: "/sys/fs/cgroup"
+          securityContext:
+            privileged: true
+        volumes:
+        - name: glusterfs-cgroup
+          hostPath:
+            path: "/sys/fs/cgroup"
+        - name: main-gluster-vol
+          persistentVolumeClaim:
+            claimName: main-gs3-pvc
+        - name: metadata-gluster-vol
+          persistentVolumeClaim:
+            claimName: meta-gs3-pvc
+        dnsPolicy: ClusterFirst
+        serviceAccountName: default
+        serviceAccount: default
+        securityContext: {}
