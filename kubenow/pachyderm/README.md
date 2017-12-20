@@ -4,6 +4,8 @@ Pachyderm Helm Chart
 Pachyderm is a language-agnostic and cloud infrastructure-agnostic large-scale data processing framework based on software containers. This chart can be used to deploy Pachyderm backed by object stores of different Cloud providers.
 
 * https://pachyderm.io
+* https://github.com/pachyderm/pachyderm
+
 
 Prerequisites Details
 ---------------------
@@ -23,8 +25,7 @@ The following table lists the configurable parameters of `pachd` and their defau
 | `*.worker.repository`    | Worker image name     | `pachyderm/worker`|
 | `*.worker.tag`           | Worker image tag      | `1.6.6`           |
 | `*.replicaCount`         | Number of pachds      | `1`               |
-| `*.resources.memory`     | Memory request        | `512M`            |
-| `*.resources.cpu`        | CPU request           | `250m`            |
+| `*.resources.requests`   | Memory and cpu request| `{512M,250m}`     |
 
 
 Next table lists the configurable parameters of `etcd` and their default values:
@@ -34,8 +35,7 @@ Next table lists the configurable parameters of `etcd` and their default values:
 | `etcd.image.repository`     | Container image name  | `pachyderm/etcd`  |
 | `*.image.tag`               | Container image tag   | `v3.2.7`          |
 | `*.image.pullPolicy`        | Image pull policy     | `IfNotPresent`    |
-| `*.resources.memory`        | Memory request        | `256M`            |
-| `*.resources.cpu`           | CPU request           | `250m`            |
+| `*.resources.requests`      | Memory and cpu request| `{250M,250m}`     |
 | `*.persistence.enabled`     | Enable persistence    | `false`           |
 | `*.persistence.size`        | Storage request       | `20G`             |
 | `*.persistence.accessMode`  | Access mode for PV    | `ReadWriteOnce`   |

@@ -13,6 +13,7 @@ version: 0.1.0
 home: "https://pachyderm.io"
 sources:
   - "https://github.com/pachyderm/pachyderm"
+  - "https://github.com/pachyderm/pachyderm"
 maintainers:
   - name: Jon Ander Novella
     email: novella.uu@gmail.com
