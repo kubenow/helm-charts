@@ -1,7 +1,7 @@
 ---
 apiVersion: v1
 description: "S3 object storage interface for GlusterFS"
-name:  gluster-s3
+name: gluster-s3
 version: 0.1.0
 home: "https://github.com/gluster/gluster-kubernetes/"
 sources:
