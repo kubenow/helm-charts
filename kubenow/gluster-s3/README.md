@@ -23,17 +23,19 @@ The following tables lists the configurable parameters of the chart and their de
 | `hostNetwork`                | How to expose the svc | `false`                 |
 
 
-This service can be deployed with default settings via Helm using a simple command. You must deploy by setting a S3 <account>, <user> and <password>. It is strongly recommended that these contain more than 6 characters.
+This service can be deployed with default settings via Helm using a simple command. You must deploy by setting a S3 <account>, <user> and <password>. It is strongly recommended that these contain more than 6 characters. You should install the chart specifying each parameter using the `--set key=value[,key=value]` argument to helm install. Please consult the `values.yaml` file for more information regarding the parameters. For example:
 
-```console
-$ helm install --name s3-interface account=<account>,user=<user>,password=<password> kubenow/gluster-s3
-```
-
-Deployment parameters can be set by using the `--set` flag as follows:
 
 ```console
 $ helm install --name s3-interface --set account=<account>,user=<user>,password=<password>,hostNetwork=false,defaultBucket.enabled=<true|false>,defaultBucket.name=<bucketName> kubenow/gluster-s3
 ```
+
+Alternatively, a YAML file that specifies the values for the parameters can be provided while installing the chart:
+
+```console
+$ helm install --name my-release -f values.yaml kubenow/gluster-s3
+```
+
 
 Clean-up
 --------
