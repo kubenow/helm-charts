@@ -50,9 +50,6 @@ pachd:
   requests:
    cpu: 250m
    memory: 512M
-  #limits:
-  # cpu: 250m
-  # memory: 512M
 
 ## Set default image settings and persistence settings of etcd
 etcd:
@@ -81,6 +78,3 @@ etcd:
   requests:
    cpu: 250m
    memory: 256M
-  #limits:
-   #cpu: 250m
-   #memory: 256M
