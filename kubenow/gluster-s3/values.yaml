@@ -8,7 +8,7 @@ user: ""
 password: ""
 defaultBucket:
  enabled: false
- name: default_bucket
+ name: defaultBucket
 
 mainPvcRequest: 120Gi
 metaPvcRequest: 10Gi
