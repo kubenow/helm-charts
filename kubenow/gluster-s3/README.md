@@ -17,7 +17,7 @@ The following tables lists the configurable parameters of the chart and their de
 | `user`                       | S3 user               | `""`                    |
 | `password`                   | S3 password           | `""`                    |
 | `defaultBucket.enabled`      | S3 bucket creation    | `false`                 |
-| `defaultBucket.name`         | S3 bucket name        | `defaultBucket`        |
+| `defaultBucket.name`         | S3 bucket name        | `defaultbucket`         |
 | `mainPvcRequest`             | Main PVC request      | `120Gi`                 |
 | `metaPvcRequest`             | Meta PVC request      | `10Gi`                  |
 | `hostNetwork`                | How to expose the svc | `false`                 |
