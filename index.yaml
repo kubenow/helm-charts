@@ -2,7 +2,7 @@ apiVersion: v1
 entries:
   cheese:
   - apiVersion: v1
-    created: 2018-01-13T10:08:37.062621021Z
+    created: 2018-01-19T09:10:13.382546277Z
     description: 'Simple cheese deployment described by Traefik documentation: http://docs.traefik.io/user-guide/kubernetes/'
     digest: 3d24c7950ae468784e9e1d93fcf37d6a6650a9633c487917c8a0ede152d3d5c8
     home: https://hub.docker.com/r/errm/cheese
@@ -17,7 +17,7 @@ entries:
     version: 0.1.0
   gluster-s3:
   - apiVersion: v1
-    created: 2018-01-13T10:08:37.062950602Z
+    created: 2018-01-19T09:10:13.382947283Z
     description: S3 object storage interface for GlusterFS
     digest: 45f844afe49e95b30fcb27d14081385350067ce04157c80af2bb531952519d3b
     home: https://github.com/gluster/gluster-kubernetes/
@@ -30,20 +30,4 @@ entries:
     urls:
     - https://kubenow.github.io/helm-charts/gluster-s3-0.1.0.tgz
     version: 0.1.0
-  pachyderm:
-  - apiVersion: v1
-    created: 2018-01-13T10:08:37.064226667Z
-    description: |
-      Pachyderm is a large-scale container-based workflow engine that offers complete version control for data and reproducible data processing
-    digest: 00aee5306f21e062a1b94be83e76dcd9e68eaed1e041e1e8cf4f691ccfc7ed80
-    home: https://pachyderm.io
-    maintainers:
-    - email: Jon.Novella@farmbio.uu.se
-      name: Jon Ander Novella
-    name: pachyderm
-    sources:
-    - https://github.com/pachyderm/pachyderm
-    urls:
-    - https://kubenow.github.io/helm-charts/pachyderm-0.4.3.tgz
-    version: 0.4.3
-generated: 2018-01-13T10:08:37.062060386Z
+generated: 2018-01-19T09:10:13.381549836Z
