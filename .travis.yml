@@ -107,7 +107,7 @@ after_success:
     fi
 
 notifications:
-  email: false
+  email: true
   slack:
     secure: >
       Ge4Vs7+Qpf0dBSr7IMMUqF9jwz+fcpSwkhLN/2de23HkKYndLy8
