@@ -2,7 +2,7 @@ apiVersion: v1
 entries:
   cheese:
   - apiVersion: v1
-    created: 2018-01-19T09:10:13.382546277Z
+    created: 2018-04-26T09:16:59.677048776Z
     description: 'Simple cheese deployment described by Traefik documentation: http://docs.traefik.io/user-guide/kubernetes/'
     digest: 3d24c7950ae468784e9e1d93fcf37d6a6650a9633c487917c8a0ede152d3d5c8
     home: https://hub.docker.com/r/errm/cheese
@@ -17,7 +17,7 @@ entries:
     version: 0.1.0
   gluster-s3:
   - apiVersion: v1
-    created: 2018-01-19T09:10:13.382947283Z
+    created: 2018-04-26T09:16:59.678140203Z
     description: S3 object storage interface for GlusterFS
     digest: 45f844afe49e95b30fcb27d14081385350067ce04157c80af2bb531952519d3b
     home: https://github.com/gluster/gluster-kubernetes/
@@ -30,4 +30,4 @@ entries:
     urls:
     - https://kubenow.github.io/helm-charts/gluster-s3-0.1.0.tgz
     version: 0.1.0
-generated: 2018-01-19T09:10:13.381549836Z
+generated: 2018-04-26T09:16:59.67537785Z
