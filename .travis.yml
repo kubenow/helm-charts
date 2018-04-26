@@ -109,6 +109,8 @@ after_success:
 notifications:
   email: true
   slack:
+    on_success: change # default: always
+    on_failure: always # default: always
     secure: >
       Ge4Vs7+Qpf0dBSr7IMMUqF9jwz+fcpSwkhLN/2de23HkKYndLy8
       uI1AXUbBfhlw9/9722E2Pljad6xJ95WqMc8rKNx4Ys59q8vB0Tg
